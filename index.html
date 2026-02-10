@@ -55,22 +55,25 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* Modal Overlay Animation */
+        .modal-overlay {
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
 
-    <!-- NAVIGATION - Updated to Brand Blue Background -->
+    <!-- NAVIGATION -->
     <nav class="sticky top-0 z-50 bg-brand-blue shadow-lg border-b border-brand-dark">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-20">
                 <!-- Logo Section -->
                 <div class="flex items-center cursor-pointer group" onclick="showPage('home')">
-                    <!-- Logo SVG tailored to description: Blue BG (nav), Yellow/Sky shape -->
                     <div class="bg-white/10 p-2 rounded-lg mr-3 group-hover:bg-white/20 transition">
                         <svg class="h-8 w-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <!-- Top part (Sky Blue) -->
                             <path d="M85 20 H30 L55 50" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                            <!-- Bottom part (Yellow) -->
                             <path d="M55 50 L30 80 H85" stroke="#FFD700" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                     </div>
@@ -90,7 +93,7 @@
                 
                 <!-- CTA Button -->
                  <div class="hidden md:flex">
-                    <button class="bg-brand-yellow text-brand-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-300 transition shadow-lg shadow-yellow-500/20 transform hover:-translate-y-0.5">
+                    <button onclick="toggleModal(true)" class="bg-brand-yellow text-brand-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-300 transition shadow-lg shadow-yellow-500/20 transform hover:-translate-y-0.5">
                         Contact Us
                     </button>
                 </div>
@@ -110,6 +113,7 @@
                 <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-medium text-white hover:bg-brand-blue rounded-md">Home</button>
                 <button onclick="showPage('privacy'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-medium text-blue-100 hover:bg-brand-blue rounded-md">Privacy Policy</button>
                 <button onclick="showPage('terms'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-medium text-blue-100 hover:bg-brand-blue rounded-md">Terms of Service</button>
+                <button onclick="toggleModal(true); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-bold text-brand-yellow hover:bg-brand-blue rounded-md">Get Started</button>
             </div>
         </div>
     </nav>
@@ -119,7 +123,6 @@
 
         <!-- ======================= HOME PAGE ======================= -->
         <div id="home" class="page-section fade-in">
-            
             <!-- Hero Section -->
             <section class="relative bg-white overflow-hidden">
                 <div class="max-w-7xl mx-auto">
@@ -135,13 +138,11 @@
                                 </p>
                                 <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                                     <div class="rounded-md shadow">
-                                        <!-- Primary CTA uses Brand Yellow -->
-                                        <a href="#" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-brand-dark bg-brand-yellow hover:bg-yellow-300 md:py-4 md:text-lg transition transform hover:-translate-y-1">
+                                        <button onclick="toggleModal(true)" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-brand-dark bg-brand-yellow hover:bg-yellow-300 md:py-4 md:text-lg transition transform hover:-translate-y-1">
                                             Get Started
-                                        </a>
+                                        </button>
                                     </div>
                                     <div class="mt-3 sm:mt-0 sm:ml-3">
-                                        <!-- Secondary CTA uses Brand Blue outline -->
                                         <a href="#services" class="w-full flex items-center justify-center px-8 py-3 border-2 border-brand-blue text-base font-medium rounded-md text-brand-blue bg-transparent hover:bg-blue-50 md:py-4 md:text-lg transition">
                                             View Services
                                         </a>
@@ -154,10 +155,8 @@
                 <!-- Decorative Graphic -->
                 <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-slate-50 flex items-center justify-center">
                    <div class="relative w-full h-64 sm:h-72 md:h-96 lg:h-full flex items-center justify-center overflow-hidden">
-                        <!-- Abstract Tech Circles using Brand Colors -->
                         <div class="absolute w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl -top-20 -right-20 animate-pulse"></div>
                         <div class="absolute w-[400px] h-[400px] bg-yellow-400/20 rounded-full blur-3xl bottom-0 left-20"></div>
-                        
                         <div class="relative z-10 grid grid-cols-2 gap-4 p-8">
                             <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-brand-blue flex flex-col items-center justify-center transform hover:scale-105 transition duration-300">
                                 <i data-lucide="server" class="w-10 h-10 text-brand-blue mb-2"></i>
@@ -188,14 +187,11 @@
                         <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-brand-blue sm:text-4xl">
                             Managed Services tailored for Malaysia & Beyond
                         </p>
-                        <p class="mt-4 max-w-2xl text-xl text-slate-500 mx-auto">
-                            We provide the tools and teams to ease the burden of IT, allowing you to focus on core business growth.
-                        </p>
                     </div>
 
                     <div class="mt-16">
                         <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                            <!-- Card 1: Brand Blue Theme -->
+                            <!-- Card 1 -->
                             <div class="pt-6">
                                 <div class="flow-root bg-white rounded-lg px-6 pb-8 shadow-md h-full hover:shadow-xl transition border-b-4 border-brand-blue group">
                                     <div class="-mt-6">
@@ -203,14 +199,11 @@
                                             <i data-lucide="monitor-check" class="h-6 w-6 text-white"></i>
                                         </div>
                                         <h3 class="mt-8 text-lg font-bold text-slate-900 tracking-tight">Day-to-Day Operations</h3>
-                                        <p class="mt-5 text-base text-slate-500">
-                                            Comprehensive monitoring and management of your IT infrastructure. We handle updates, patches, and uptime.
-                                        </p>
+                                        <p class="mt-5 text-base text-slate-500">Comprehensive monitoring and management of your IT infrastructure. We handle updates, patches, and uptime.</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Card 2: Brand Yellow Theme -->
+                            <!-- Card 2 -->
                             <div class="pt-6">
                                 <div class="flow-root bg-white rounded-lg px-6 pb-8 shadow-md h-full hover:shadow-xl transition border-b-4 border-brand-yellow group">
                                     <div class="-mt-6">
@@ -218,14 +211,11 @@
                                             <i data-lucide="tool" class="h-6 w-6 text-brand-dark"></i>
                                         </div>
                                         <h3 class="mt-8 text-lg font-bold text-slate-900 tracking-tight">Burden-Easing Tools</h3>
-                                        <p class="mt-5 text-base text-slate-500">
-                                            Proprietary and partner automation tools that reduce manual workload, streamline workflows, and reduce error rates.
-                                        </p>
+                                        <p class="mt-5 text-base text-slate-500">Proprietary and partner automation tools that reduce manual workload, streamline workflows, and reduce error rates.</p>
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Card 3: Brand Sky Theme -->
+                            <!-- Card 3 -->
                             <div class="pt-6">
                                 <div class="flow-root bg-white rounded-lg px-6 pb-8 shadow-md h-full hover:shadow-xl transition border-b-4 border-brand-sky group">
                                     <div class="-mt-6">
@@ -233,9 +223,7 @@
                                             <i data-lucide="cloud" class="h-6 w-6 text-white"></i>
                                         </div>
                                         <h3 class="mt-8 text-lg font-bold text-slate-900 tracking-tight">Cloud Management</h3>
-                                        <p class="mt-5 text-base text-slate-500">
-                                            Whether on-premise, hybrid, or full cloud, we ensure your data is accessible, secure, and cost-optimized.
-                                        </p>
+                                        <p class="mt-5 text-base text-slate-500">Whether on-premise, hybrid, or full cloud, we ensure your data is accessible, secure, and cost-optimized.</p>
                                     </div>
                                 </div>
                             </div>
@@ -250,41 +238,9 @@
             <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 shadow-lg rounded-xl border-t-8 border-brand-blue">
                 <div class="border-b border-slate-200 pb-6 mb-6">
                     <h1 class="text-3xl font-bold text-brand-blue">Privacy Policy</h1>
-                    <p class="text-sm text-slate-500 mt-2">Effective Date: October 26, 2023</p>
                 </div>
-                
                 <div class="prose prose-blue prose-lg text-slate-600">
-                    <p>At <strong>EiaaSolutions</strong>, we value your privacy and are committed to protecting your personal data. This Privacy Policy outlines how we collect, use, and safeguard your information in compliance with the <strong>Personal Data Protection Act 2010 (PDPA) of Malaysia</strong> and international standards including GDPR where applicable.</p>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">1. Collection of Personal Data</h3>
-                    <p>We may collect the following information when you engage our managed services or use our tools:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Company details (Name, Registration Number).</li>
-                        <li>Contact information (Email, Phone Number, Physical Address).</li>
-                        <li>Technical data (IP addresses, server logs, device identifiers) required for IT operations.</li>
-                    </ul>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">2. Purpose of Processing</h3>
-                    <p>Your data is processed for the following lawful purposes:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>To provide digital managed services and operational support.</li>
-                        <li>To maintain the security of your IT infrastructure.</li>
-                        <li>To communicate regarding service updates, outages, or maintenance.</li>
-                        <li>For invoicing and contract fulfillment.</li>
-                    </ul>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">3. Data Security</h3>
-                    <p>We implement industry-standard encryption, firewalls, and access controls to protect your data. However, no method of transmission over the Internet is 100% secure.</p>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">4. Disclosure to Third Parties</h3>
-                    <p>We do not sell your data. We may share data with:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Sub-processors (e.g., cloud infrastructure providers like AWS/Azure) strictly for service delivery.</li>
-                        <li>Legal authorities if required by Malaysian law or court order.</li>
-                    </ul>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">5. Your Rights</h3>
-                    <p>Under the PDPA, you have the right to request access to your data, request corrections, or withdraw consent for data processing. Contact our Data Protection Officer at privacy@eiaasolutions.com.</p>
+                    <p>At <strong>EiaaSolutions</strong>, we value your privacy and are committed to protecting your personal data in compliance with the PDPA 2010 of Malaysia.</p>
                 </div>
             </div>
         </div>
@@ -294,32 +250,72 @@
             <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 shadow-lg rounded-xl border-t-8 border-brand-yellow">
                 <div class="border-b border-slate-200 pb-6 mb-6">
                     <h1 class="text-3xl font-bold text-brand-blue">Terms of Service</h1>
-                    <p class="text-sm text-slate-500 mt-2">Last Updated: October 26, 2023</p>
                 </div>
-                
                 <div class="prose prose-blue prose-lg text-slate-600">
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">1. Acceptance of Terms</h3>
-                    <p>By accessing the website of EiaaSolutions or engaging our digital managed services, you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
+                    <p>By accessing the website or engaging our services, you agree to be bound by these Terms of Service.</p>
+                </div>
+            </div>
+        </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">2. Services Provided</h3>
-                    <p>EiaaSolutions provides IT operational support, managed services, and software tools. We reserve the right to modify, suspend, or discontinue any aspect of our services with reasonable notice.</p>
+        <!-- ======================= ENQUIRY FORM MODAL ======================= -->
+        <div id="enquiry-modal" class="hidden fixed inset-0 z-[100] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+            <!-- Overlay -->
+            <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <div onclick="toggleModal(false)" class="fixed inset-0 bg-slate-900/80 modal-overlay" aria-hidden="true"></div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">3. User Obligations</h3>
-                    <p>Clients agree to:</p>
-                    <ul class="list-disc pl-5 space-y-1">
-                        <li>Provide accurate information necessary for service delivery.</li>
-                        <li>Not use our tools for any illegal activities, including distributing malware or unauthorized data access.</li>
-                        <li>Maintain the confidentiality of their account credentials.</li>
-                    </ul>
+                <!-- Modal Content -->
+                <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border-t-8 border-brand-yellow animate-fadeIn">
+                    <div id="form-container" class="bg-white px-6 pt-5 pb-6 sm:p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <h3 class="text-2xl font-extrabold text-brand-blue" id="modal-title">Get Started</h3>
+                                <p class="text-slate-500 text-sm mt-1">Tell us about your needs and we'll reach out shortly.</p>
+                            </div>
+                            <button onclick="toggleModal(false)" class="text-slate-400 hover:text-slate-600 p-1">
+                                <i data-lucide="x" class="w-6 h-6"></i>
+                            </button>
+                        </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">4. Limitation of Liability</h3>
-                    <p>To the fullest extent permitted by law, EiaaSolutions shall not be liable for indirect, incidental, or consequential damages (including loss of data or profit) arising from the use of our services, except in cases of proven gross negligence.</p>
+                        <form id="enquiry-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Full Name *</label>
+                                <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Work Email *</label>
+                                <input type="email" required placeholder="john@company.com" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Service Interested In</label>
+                                <select class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition bg-white">
+                                    <option>Managed IT Services</option>
+                                    <option>Automation Tools</option>
+                                    <option>Cloud Infrastructure</option>
+                                    <option>General Enquiry</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-slate-700 mb-1">Message</label>
+                                <textarea rows="3" placeholder="How can we help you thrive?" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-brand-blue text-white font-bold py-4 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-blue-500/20 transform active:scale-95">
+                                Submit Enquiry
+                            </button>
+                            <p class="text-[10px] text-center text-slate-400">By submitting, you agree to our Privacy Policy.</p>
+                        </form>
+                    </div>
 
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">5. Intellectual Property</h3>
-                    <p>All software tools, methodologies, and branding provided by EiaaSolutions remain the intellectual property of EiaaSolutions. You are granted a limited, non-exclusive license to use our tools during the service term.</p>
-
-                    <h3 class="text-xl font-bold text-slate-800 mt-6 mb-2">6. Governing Law</h3>
-                    <p>These Terms shall be governed by and construed in accordance with the <strong>laws of Malaysia</strong>. Any disputes arising shall be subject to the exclusive jurisdiction of the courts of Malaysia.</p>
+                    <!-- Success Message (Hidden by default) -->
+                    <div id="success-container" class="hidden bg-white px-6 py-12 text-center">
+                        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
+                            <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900">Message Received!</h3>
+                        <p class="text-slate-500 mt-2 px-4">Thank you for reaching out to EiaaSolutions. Our team will contact you within 24 business hours.</p>
+                        <button onclick="toggleModal(false)" class="mt-8 text-brand-blue font-bold hover:underline">
+                            Close Window
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -330,7 +326,6 @@
     <footer class="bg-brand-blue text-white border-t border-brand-dark">
         <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Brand -->
                 <div class="col-span-1">
                     <div class="flex items-center">
                         <svg class="h-8 w-8 mr-2" viewBox="0 0 100 100" fill="none">
@@ -339,12 +334,8 @@
                         </svg>
                         <span class="text-xl font-extrabold">EiaaSolutions</span>
                     </div>
-                    <p class="mt-4 text-blue-100 text-sm">
-                        Easing the burden of IT operations through creative, robust digital solutions.
-                    </p>
+                    <p class="mt-4 text-blue-100 text-sm">Easing the burden of IT operations through creative, robust digital solutions.</p>
                 </div>
-                
-                <!-- Links -->
                 <div class="col-span-1">
                     <h3 class="text-sm font-semibold text-brand-yellow tracking-wider uppercase">Legal</h3>
                     <ul class="mt-4 space-y-4">
@@ -352,42 +343,26 @@
                         <li><button onclick="showPage('terms')" class="text-base text-blue-100 hover:text-white hover:underline">Terms of Service</button></li>
                     </ul>
                 </div>
-
-                <!-- Contact -->
                 <div class="col-span-1">
                     <h3 class="text-sm font-semibold text-brand-yellow tracking-wider uppercase">Contact</h3>
                     <ul class="mt-4 space-y-4">
-                        <li class="flex items-center text-blue-100">
-                            <i data-lucide="map-pin" class="h-5 w-5 mr-2 text-brand-sky"></i>
-                            Kuala Lumpur, Malaysia
-                        </li>
-                        <li class="flex items-center text-blue-100">
-                            <i data-lucide="mail" class="h-5 w-5 mr-2 text-brand-sky"></i>
-                            hello@eiaasolutions.com
-                        </li>
+                        <li class="flex items-center text-blue-100"><i data-lucide="map-pin" class="h-5 w-5 mr-2 text-brand-sky"></i> Kuala Lumpur, Malaysia</li>
+                        <li class="flex items-center text-blue-100"><i data-lucide="mail" class="h-5 w-5 mr-2 text-brand-sky"></i> hello@eiaasolutions.com</li>
                     </ul>
                 </div>
             </div>
-            <div class="mt-8 border-t border-brand-dark pt-8 text-center">
-                <p class="text-base text-blue-200">&copy; 2023 EiaaSolutions. All rights reserved.</p>
+            <div class="mt-8 border-t border-brand-dark pt-8 text-center text-blue-200">
+                <p>&copy; 2023 EiaaSolutions. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT LOGIC -->
+    <!-- JAVASCRIPT -->
     <script>
-        // Initialize Icons
         lucide.createIcons();
 
-        // Simple Router Logic
         function showPage(pageId) {
-            // Hide all sections
-            const sections = document.querySelectorAll('.page-section');
-            sections.forEach(section => {
-                section.classList.add('hidden');
-            });
-
-            // Show selected section
+            document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
             const activeSection = document.getElementById(pageId);
             if (activeSection) {
                 activeSection.classList.remove('hidden');
@@ -395,21 +370,50 @@
             }
         }
         
-        // Scroll to specific section within Home
         function scrollToSection(sectionId) {
-            showPage('home'); // Ensure we are on home
+            showPage('home');
             setTimeout(() => {
                 const element = document.getElementById(sectionId);
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth' });
-                }
+                if (element) element.scrollIntoView({ behavior: 'smooth' });
             }, 100);
         }
 
-        // Mobile Menu Toggle
         function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // Modal Controls
+        function toggleModal(show) {
+            const modal = document.getElementById('enquiry-modal');
+            const formContainer = document.getElementById('form-container');
+            const successContainer = document.getElementById('success-container');
+            
+            if (show) {
+                modal.classList.remove('hidden');
+                formContainer.classList.remove('hidden');
+                successContainer.classList.add('hidden');
+                document.body.style.overflow = 'hidden'; // Prevent scroll
+            } else {
+                modal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Re-enable scroll
+            }
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            // Show loading or transition to success
+            const submitBtn = e.target.querySelector('button[type="submit"]');
+            submitBtn.innerHTML = 'Sending...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                document.getElementById('form-container').classList.add('hidden');
+                document.getElementById('success-container').classList.remove('hidden');
+                e.target.reset();
+                submitBtn.innerHTML = 'Submit Enquiry';
+                submitBtn.disabled = false;
+                lucide.createIcons();
+            }, 1000);
         }
     </script>
 </body>
