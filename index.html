@@ -1,420 +1,128 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EiaaSolutions | Digital Managed Services</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            blue: '#0052cc',     /* The Royal Blue from the logo bg */
-                            dark: '#003d99',
-                            yellow: '#FFD700',   /* The Yellow from the logo icon */
-                            sky: '#38bdf8',      /* The Light blue from the logo icon */
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-    
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        
-        /* Vibrant Gradient Animation based on Logo Colors */
-        .brand-gradient-text {
-            background: linear-gradient(135deg, #0052cc 0%, #0ea5e9 50%, #eab308 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        
-        .bg-brand-gradient {
-            background: linear-gradient(135deg, #0052cc 0%, #003d99 100%);
-        }
-
-        /* Smooth fade in for page transitions */
-        .fade-in {
-            animation: fadeIn 0.4s ease-in-out;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Modal Overlay Animation */
-        .modal-overlay {
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-        }
-    </style>
+    <title>EIAAW SOLUTIONS | Ethical AI-Human Partnerships</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-50 text-slate-800 flex flex-col min-h-screen">
+<body>
 
-    <!-- NAVIGATION -->
-    <nav class="sticky top-0 z-50 bg-brand-blue shadow-lg border-b border-brand-dark">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Logo Section -->
-                <div class="flex items-center cursor-pointer group" onclick="showPage('home')">
-                    <div class="bg-white/10 p-2 rounded-lg mr-3 group-hover:bg-white/20 transition">
-                        <svg class="h-8 w-8" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M85 20 H30 L55 50" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M55 50 L30 80 H85" stroke="#FFD700" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                    </div>
-                    <div>
-                        <h1 class="text-2xl font-extrabold tracking-tight text-white">EIAA<span class="text-brand-yellow">SOLUTIONS</span></h1>
-                        <p class="text-[10px] font-bold text-brand-sky tracking-[0.2em] uppercase">Creative Ways To Thrive</p>
-                    </div>
-                </div>
-
-                <!-- Desktop Menu -->
-                <div class="hidden md:flex space-x-8">
-                    <button onclick="showPage('home')" class="text-white hover:text-brand-yellow font-medium transition-colors border-b-2 border-transparent hover:border-brand-yellow py-1">Home</button>
-                    <button onclick="scrollToSection('services')" class="text-blue-100 hover:text-brand-yellow font-medium transition-colors border-b-2 border-transparent hover:border-brand-yellow py-1">Services</button>
-                    <button onclick="showPage('privacy')" class="text-blue-100 hover:text-brand-yellow font-medium transition-colors border-b-2 border-transparent hover:border-brand-yellow py-1">Privacy Policy</button>
-                    <button onclick="showPage('terms')" class="text-blue-100 hover:text-brand-yellow font-medium transition-colors border-b-2 border-transparent hover:border-brand-yellow py-1">Terms of Service</button>
-                </div>
-                
-                <!-- CTA Button -->
-                 <div class="hidden md:flex">
-                    <button onclick="toggleModal(true)" class="bg-brand-yellow text-brand-dark px-6 py-2 rounded-full font-bold hover:bg-yellow-300 transition shadow-lg shadow-yellow-500/20 transform hover:-translate-y-0.5">
-                        Contact Us
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
-                    <button onclick="toggleMobileMenu()" class="text-white hover:text-brand-yellow focus:outline-none">
-                        <i data-lucide="menu" class="w-8 h-8"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Menu Dropdown -->
-        <div id="mobile-menu" class="hidden md:hidden bg-brand-dark border-b border-brand-blue">
-            <div class="px-4 pt-2 pb-6 space-y-2">
-                <button onclick="showPage('home'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-medium text-white hover:bg-brand-blue rounded-md">Home</button>
-                <button onclick="showPage('privacy'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-medium text-blue-100 hover:bg-brand-blue rounded-md">Privacy Policy</button>
-                <button onclick="showPage('terms'); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-medium text-blue-100 hover:bg-brand-blue rounded-md">Terms of Service</button>
-                <button onclick="toggleModal(true); toggleMobileMenu()" class="block w-full text-left px-3 py-2 text-base font-bold text-brand-yellow hover:bg-brand-blue rounded-md">Get Started</button>
-            </div>
+    <nav>
+        <div class="container nav-container">
+            <div class="logo">EIAAW SOLUTIONS</div>
+            <ul class="nav-links">
+                <li><a href="#about">What We Do</a></li>
+                <li><a href="#ethics">Ethical Framework</a></li>
+                <li><a href="mailto:eiaawsolutions@gmail.com" class="cta-btn-sm">Contact Us</a></li>
+            </ul>
         </div>
     </nav>
 
-    <!-- MAIN CONTENT AREA -->
-    <main class="flex-grow relative">
-
-        <!-- ======================= HOME PAGE ======================= -->
-        <div id="home" class="page-section fade-in">
-            <!-- Hero Section -->
-            <section class="relative bg-white overflow-hidden">
-                <div class="max-w-7xl mx-auto">
-                    <div class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20 px-4 sm:px-6 lg:px-8">
-                        <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
-                            <div class="sm:text-center lg:text-left">
-                                <h1 class="text-4xl tracking-tight font-extrabold text-brand-blue sm:text-5xl md:text-6xl">
-                                    <span class="block xl:inline">Seamless IT Operations</span>
-                                    <span class="block brand-gradient-text">So You Can Thrive.</span>
-                                </h1>
-                                <p class="mt-3 text-base text-slate-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                                    We handle the digital burden. EiaaSolutions provides premier managed services and automation tools designed to simplify your day-to-day IT operations.
-                                </p>
-                                <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                                    <div class="rounded-md shadow">
-                                        <button onclick="toggleModal(true)" class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-bold rounded-md text-brand-dark bg-brand-yellow hover:bg-yellow-300 md:py-4 md:text-lg transition transform hover:-translate-y-1">
-                                            Get Started
-                                        </button>
-                                    </div>
-                                    <div class="mt-3 sm:mt-0 sm:ml-3">
-                                        <a href="#services" class="w-full flex items-center justify-center px-8 py-3 border-2 border-brand-blue text-base font-medium rounded-md text-brand-blue bg-transparent hover:bg-blue-50 md:py-4 md:text-lg transition">
-                                            View Services
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </main>
-                    </div>
-                </div>
-                <!-- Decorative Graphic -->
-                <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-slate-50 flex items-center justify-center">
-                   <div class="relative w-full h-64 sm:h-72 md:h-96 lg:h-full flex items-center justify-center overflow-hidden">
-                        <div class="absolute w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-3xl -top-20 -right-20 animate-pulse"></div>
-                        <div class="absolute w-[400px] h-[400px] bg-yellow-400/20 rounded-full blur-3xl bottom-0 left-20"></div>
-                        <div class="relative z-10 grid grid-cols-2 gap-4 p-8">
-                            <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-brand-blue flex flex-col items-center justify-center transform hover:scale-105 transition duration-300">
-                                <i data-lucide="server" class="w-10 h-10 text-brand-blue mb-2"></i>
-                                <span class="font-bold text-slate-700">99.9% Uptime</span>
-                            </div>
-                            <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-brand-yellow flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 mt-8">
-                                <i data-lucide="shield-check" class="w-10 h-10 text-brand-yellow mb-2"></i>
-                                <span class="font-bold text-slate-700">Secure</span>
-                            </div>
-                            <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-brand-sky flex flex-col items-center justify-center transform hover:scale-105 transition duration-300">
-                                <i data-lucide="zap" class="w-10 h-10 text-brand-sky mb-2"></i>
-                                <span class="font-bold text-slate-700">Automated</span>
-                            </div>
-                            <div class="bg-white p-6 rounded-2xl shadow-xl border-t-4 border-brand-blue flex flex-col items-center justify-center transform hover:scale-105 transition duration-300 mt-8">
-                                <i data-lucide="users" class="w-10 h-10 text-green-600 mb-2"></i>
-                                <span class="font-bold text-slate-700">Support</span>
-                            </div>
-                        </div>
-                   </div>
-                </div>
-            </section>
-
-            <!-- Services Section -->
-            <section id="services" class="py-20 bg-slate-50">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div class="text-center">
-                        <h2 class="text-base text-brand-sky font-bold tracking-wide uppercase">Our Expertise</h2>
-                        <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-brand-blue sm:text-4xl">
-                            Managed Services tailored for Malaysia & Beyond
-                        </p>
-                    </div>
-
-                    <div class="mt-16">
-                        <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                            <!-- Card 1 -->
-                            <div class="pt-6">
-                                <div class="flow-root bg-white rounded-lg px-6 pb-8 shadow-md h-full hover:shadow-xl transition border-b-4 border-brand-blue group">
-                                    <div class="-mt-6">
-                                        <div class="inline-flex items-center justify-center p-3 bg-brand-blue rounded-md shadow-lg group-hover:scale-110 transition">
-                                            <i data-lucide="monitor-check" class="h-6 w-6 text-white"></i>
-                                        </div>
-                                        <h3 class="mt-8 text-lg font-bold text-slate-900 tracking-tight">Day-to-Day Operations</h3>
-                                        <p class="mt-5 text-base text-slate-500">Comprehensive monitoring and management of your IT infrastructure. We handle updates, patches, and uptime.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card 2 -->
-                            <div class="pt-6">
-                                <div class="flow-root bg-white rounded-lg px-6 pb-8 shadow-md h-full hover:shadow-xl transition border-b-4 border-brand-yellow group">
-                                    <div class="-mt-6">
-                                        <div class="inline-flex items-center justify-center p-3 bg-brand-yellow rounded-md shadow-lg group-hover:scale-110 transition">
-                                            <i data-lucide="tool" class="h-6 w-6 text-brand-dark"></i>
-                                        </div>
-                                        <h3 class="mt-8 text-lg font-bold text-slate-900 tracking-tight">Burden-Easing Tools</h3>
-                                        <p class="mt-5 text-base text-slate-500">Proprietary and partner automation tools that reduce manual workload, streamline workflows, and reduce error rates.</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Card 3 -->
-                            <div class="pt-6">
-                                <div class="flow-root bg-white rounded-lg px-6 pb-8 shadow-md h-full hover:shadow-xl transition border-b-4 border-brand-sky group">
-                                    <div class="-mt-6">
-                                        <div class="inline-flex items-center justify-center p-3 bg-brand-sky rounded-md shadow-lg group-hover:scale-110 transition">
-                                            <i data-lucide="cloud" class="h-6 w-6 text-white"></i>
-                                        </div>
-                                        <h3 class="mt-8 text-lg font-bold text-slate-900 tracking-tight">Cloud Management</h3>
-                                        <p class="mt-5 text-base text-slate-500">Whether on-premise, hybrid, or full cloud, we ensure your data is accessible, secure, and cost-optimized.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <header class="hero">
+        <div class="container">
+            <h1>Building the Future of Work, <br><span class="highlight">One Partnership at a Time</span></h1>
+            <p class="tagline">Where human creativity meets AI precision to deliver strategic AI-human partnerships.</p>
+            <div class="hero-btns">
+                <a href="#about" class="cta-btn">Learn More</a>
+            </div>
         </div>
+    </header>
 
-        <!-- ======================= PRIVACY POLICY ======================= -->
-        <div id="privacy" class="page-section hidden fade-in py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 shadow-lg rounded-xl border-t-8 border-brand-blue">
-                <div class="border-b border-slate-200 pb-6 mb-6">
-                    <h1 class="text-3xl font-bold text-brand-blue">Privacy Policy</h1>
-                </div>
-                <div class="prose prose-blue prose-lg text-slate-600">
-                    <p>At <strong>EiaaSolutions</strong>, we value your privacy and are committed to protecting your personal data in compliance with the PDPA 2010 of Malaysia.</p>
+    <section class="pitch">
+        <div class="container">
+            <div class="pitch-content">
+                <h2>Better Together</h2>
+                <p>We help companies build AI-human teams that outperform either alone. While others focus on replacing workers to cut costs, <strong>we focus on amplifying human capabilities.</strong></p>
+                <div class="metrics">
+                    <div class="metric-card"><strong>3x</strong><span>Faster Analysis</span></div>
+                    <div class="metric-card"><strong>40%</strong><span>More Strategy Time</span></div>
+                    <div class="metric-card"><strong>25%</strong><span>Better Satisfaction</span></div>
                 </div>
             </div>
         </div>
+    </section>
 
-        <!-- ======================= TERMS OF SERVICE ======================= -->
-        <div id="terms" class="page-section hidden fade-in py-16 px-4 sm:px-6 lg:px-8">
-            <div class="max-w-4xl mx-auto bg-white p-8 sm:p-12 shadow-lg rounded-xl border-t-8 border-brand-yellow">
-                <div class="border-b border-slate-200 pb-6 mb-6">
-                    <h1 class="text-3xl font-bold text-brand-blue">Terms of Service</h1>
+    <section id="about" class="what-we-do">
+        <div class="container">
+            <h2>What We Do</h2>
+            <p class="section-intro">We design AI-human partnerships that transform how teams work. Instead of replacing people with automation, we create hybrid systems where AI handles the grunt work, freeing your team for what matters.</p>
+            
+            <div class="grid">
+                <div class="feature-card">
+                    <h3>Strategic Implementation</h3>
+                    <p>AI that respects human dignity and enhances existing workflows.</p>
                 </div>
-                <div class="prose prose-blue prose-lg text-slate-600">
-                    <p>By accessing the website or engaging our services, you agree to be bound by these Terms of Service.</p>
+                <div class="feature-card">
+                    <h3>Change Management</h3>
+                    <p>Proven processes that bring your team along for the journey.</p>
                 </div>
-            </div>
-        </div>
-
-        <!-- ======================= ENQUIRY FORM MODAL ======================= -->
-        <div id="enquiry-modal" class="hidden fixed inset-0 z-[100] overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-            <!-- Overlay -->
-            <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-                <div onclick="toggleModal(false)" class="fixed inset-0 bg-slate-900/80 modal-overlay" aria-hidden="true"></div>
-
-                <!-- Modal Content -->
-                <div class="inline-block align-bottom bg-white rounded-2xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full border-t-8 border-brand-yellow animate-fadeIn">
-                    <div id="form-container" class="bg-white px-6 pt-5 pb-6 sm:p-8">
-                        <div class="flex justify-between items-start mb-6">
-                            <div>
-                                <h3 class="text-2xl font-extrabold text-brand-blue" id="modal-title">Get Started</h3>
-                                <p class="text-slate-500 text-sm mt-1">Tell us about your needs and we'll reach out shortly.</p>
-                            </div>
-                            <button onclick="toggleModal(false)" class="text-slate-400 hover:text-slate-600 p-1">
-                                <i data-lucide="x" class="w-6 h-6"></i>
-                            </button>
-                        </div>
-
-                        <form id="enquiry-form" onsubmit="handleFormSubmit(event)" class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-1">Full Name *</label>
-                                <input type="text" required placeholder="John Doe" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-1">Work Email *</label>
-                                <input type="email" required placeholder="john@company.com" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-1">Service Interested In</label>
-                                <select class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition bg-white">
-                                    <option>Managed IT Services</option>
-                                    <option>Automation Tools</option>
-                                    <option>Cloud Infrastructure</option>
-                                    <option>General Enquiry</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-bold text-slate-700 mb-1">Message</label>
-                                <textarea rows="3" placeholder="How can we help you thrive?" class="w-full px-4 py-3 rounded-lg border border-slate-200 focus:ring-2 focus:ring-brand-blue focus:border-brand-blue outline-none transition"></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-brand-blue text-white font-bold py-4 rounded-xl hover:bg-brand-dark transition shadow-lg shadow-blue-500/20 transform active:scale-95">
-                                Submit Enquiry
-                            </button>
-                            <p class="text-[10px] text-center text-slate-400">By submitting, you agree to our Privacy Policy.</p>
-                        </form>
-                    </div>
-
-                    <!-- Success Message (Hidden by default) -->
-                    <div id="success-container" class="hidden bg-white px-6 py-12 text-center">
-                        <div class="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
-                            <i data-lucide="check" class="w-8 h-8 text-green-600"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-slate-900">Message Received!</h3>
-                        <p class="text-slate-500 mt-2 px-4">Thank you for reaching out to EiaaSolutions. Our team will contact you within 24 business hours.</p>
-                        <button onclick="toggleModal(false)" class="mt-8 text-brand-blue font-bold hover:underline">
-                            Close Window
-                        </button>
-                    </div>
+                <div class="feature-card">
+                    <h3>Continuous Optimization</h3>
+                    <p>Systems that evolve alongside your business needs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Ethical Frameworks</h3>
+                    <p>Prioritizing people over pure efficiency at every stage.</p>
                 </div>
             </div>
         </div>
+    </section>
 
-    </main>
-
-    <!-- FOOTER -->
-    <footer class="bg-brand-blue text-white border-t border-brand-dark">
-        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="col-span-1">
-                    <div class="flex items-center">
-                        <svg class="h-8 w-8 mr-2" viewBox="0 0 100 100" fill="none">
-                            <path d="M85 20 H30 L55 50" stroke="#38bdf8" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                            <path d="M55 50 L30 80 H85" stroke="#FFD700" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                        <span class="text-xl font-extrabold">EiaaSolutions</span>
-                    </div>
-                    <p class="mt-4 text-blue-100 text-sm">Easing the burden of IT operations through creative, robust digital solutions.</p>
+    <section id="ethics" class="ethics">
+        <div class="container">
+            <div class="ethics-header">
+                <h2>Our Ethical AI Framework</h2>
+                <p>AI should amplify human potential, not replace it. These principles guide every project we undertake.</p>
+            </div>
+            
+            <div class="ethics-list">
+                <div class="ethic-point">
+                    <span class="num">01</span>
+                    <div><strong>Human Dignity First</strong>: Every solution must make work more meaningful, not obsolete.</div>
                 </div>
-                <div class="col-span-1">
-                    <h3 class="text-sm font-semibold text-brand-yellow tracking-wider uppercase">Legal</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li><button onclick="showPage('privacy')" class="text-base text-blue-100 hover:text-white hover:underline">Privacy Policy</button></li>
-                        <li><button onclick="showPage('terms')" class="text-base text-blue-100 hover:text-white hover:underline">Terms of Service</button></li>
-                    </ul>
+                <div class="ethic-point">
+                    <span class="num">02</span>
+                    <div><strong>Transparency</strong>: No black boxes. We explain how systems work in plain language.</div>
                 </div>
-                <div class="col-span-1">
-                    <h3 class="text-sm font-semibold text-brand-yellow tracking-wider uppercase">Contact</h3>
-                    <ul class="mt-4 space-y-4">
-                        <li class="flex items-center text-blue-100"><i data-lucide="map-pin" class="h-5 w-5 mr-2 text-brand-sky"></i> Kuala Lumpur, Malaysia</li>
-                        <li class="flex items-center text-blue-100"><i data-lucide="mail" class="h-5 w-5 mr-2 text-brand-sky"></i> hello@eiaasolutions.com</li>
-                    </ul>
+                <div class="ethic-point">
+                    <span class="num">03</span>
+                    <div><strong>Fairness</strong>: Active testing to reduce and mitigate algorithmic bias.</div>
+                </div>
+                <div class="ethic-point">
+                    <span class="num">04</span>
+                    <div><strong>Human Oversight</strong>: AI suggests, but humans make the final decisions.</div>
+                </div>
+                <div class="ethic-point">
+                    <span class="num">05</span>
+                    <div><strong>Privacy & Data</strong>: Military-grade security and full GDPR/CCPA compliance.</div>
+                </div>
+                <div class="ethic-point">
+                    <span class="num">06</span>
+                    <div><strong>Continuous Learning</strong>: Built-in feedback loops to monitor for drift.</div>
+                </div>
+                <div class="ethic-point">
+                    <span class="num">07</span>
+                    <div><strong>True Partnership</strong>: We collaborate with your teams, we don't dictate to them.</div>
                 </div>
             </div>
-            <div class="mt-8 border-t border-brand-dark pt-8 text-center text-blue-200">
-                <p>&copy; 2023 EiaaSolutions. All rights reserved.</p>
+
+            <div class="commitment">
+                <p><strong>Our Commitment:</strong> Before any implementation, we conduct an "AI Impact Assessment" to ensure alignment. We'd rather walk away from a project than compromise our values.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <h3>Questions about our approach?</h3>
+            <p>Ready to elevate your team through strategic AI?</p>
+            <a href="mailto:eiaawsolutions@gmail.com" class="footer-email">eiaawsolutions@gmail.com</a>
+            <div class="footer-bottom">
+                &copy; 2026 EIAAW SOLUTIONS. All rights reserved.
             </div>
         </div>
     </footer>
 
-    <!-- JAVASCRIPT -->
-    <script>
-        lucide.createIcons();
-
-        function showPage(pageId) {
-            document.querySelectorAll('.page-section').forEach(s => s.classList.add('hidden'));
-            const activeSection = document.getElementById(pageId);
-            if (activeSection) {
-                activeSection.classList.remove('hidden');
-                window.scrollTo(0, 0);
-            }
-        }
-        
-        function scrollToSection(sectionId) {
-            showPage('home');
-            setTimeout(() => {
-                const element = document.getElementById(sectionId);
-                if (element) element.scrollIntoView({ behavior: 'smooth' });
-            }, 100);
-        }
-
-        function toggleMobileMenu() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
-        }
-
-        // Modal Controls
-        function toggleModal(show) {
-            const modal = document.getElementById('enquiry-modal');
-            const formContainer = document.getElementById('form-container');
-            const successContainer = document.getElementById('success-container');
-            
-            if (show) {
-                modal.classList.remove('hidden');
-                formContainer.classList.remove('hidden');
-                successContainer.classList.add('hidden');
-                document.body.style.overflow = 'hidden'; // Prevent scroll
-            } else {
-                modal.classList.add('hidden');
-                document.body.style.overflow = 'auto'; // Re-enable scroll
-            }
-        }
-
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            // Show loading or transition to success
-            const submitBtn = e.target.querySelector('button[type="submit"]');
-            submitBtn.innerHTML = 'Sending...';
-            submitBtn.disabled = true;
-
-            setTimeout(() => {
-                document.getElementById('form-container').classList.add('hidden');
-                document.getElementById('success-container').classList.remove('hidden');
-                e.target.reset();
-                submitBtn.innerHTML = 'Submit Enquiry';
-                submitBtn.disabled = false;
-                lucide.createIcons();
-            }, 1000);
-        }
-    </script>
 </body>
 </html>
