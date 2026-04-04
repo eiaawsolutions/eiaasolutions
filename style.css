@@ -387,3 +387,32 @@ footer > .container > p { opacity: 0.8; font-size: 1.05rem; }
     h2 { font-size: 1.8rem; }
 }
 
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .hero::before {
+        animation: none;
+    }
+    .feature-card,
+    .ethic-point,
+    .metric-card,
+    .cta-btn,
+    .cta-btn-sm,
+    .footer-email,
+    .logo-img {
+        transition: none;
+    }
+    .feature-card:hover,
+    .ethic-point:hover,
+    .metric-card:hover {
+        transform: none;
+    }
+    html {
+        scroll-behavior: auto;
+    }
+}
+
