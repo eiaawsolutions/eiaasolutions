@@ -4,16 +4,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EIAAW SOLUTIONS | Ethical AI-Human Partnerships</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
     <div class="container nav-container">
-    <div class="logo-box">
-    <img src="logo.png" alt="EIAAW SOLUTIONS" class="logo-img">
-    <span class="logo-text">EIAAW SOLUTIONS</span>
-</div>
+        <div class="logo-box">
+            <img src="logo.png" alt="EIAAW SOLUTIONS" class="logo-img">
+            <span class="logo-text">EIAAW SOLUTIONS</span>
+        </div>
+        <button class="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
         <ul class="nav-links">
             <li><a href="#about">What We Do</a></li>
             <li><a href="#ethics">Ethical Framework</a></li>
@@ -24,9 +32,9 @@
 
     <header class="hero">
         <div class="container">
-            <h1>Building the Future of Work, <br><span class="highlight">One Partnership at a Time</span></h1>
-            <p class="tagline">Where human creativity meets AI precision to deliver strategic AI-human partnerships.</p>
-            <div class="hero-btns">
+            <h1 class="reveal">Building the Future of Work, <br><span class="highlight">One Partnership at a Time</span></h1>
+            <p class="tagline reveal">Where human creativity meets AI precision to deliver strategic AI-human partnerships.</p>
+            <div class="hero-btns reveal">
                 <a href="#about" class="cta-btn">Learn More</a>
             </div>
         </div>
@@ -35,12 +43,12 @@
     <section class="pitch">
         <div class="container">
             <div class="pitch-content">
-                <h2>Better Together</h2>
-                <p>We help companies build AI-human teams that outperform either alone. While others focus on replacing workers to cut costs, <strong>we focus on amplifying human capabilities.</strong></p>
+                <h2 class="reveal">Better Together</h2>
+                <p class="reveal">We help companies build AI-human teams that outperform either alone. While others focus on replacing workers to cut costs, <strong>we focus on amplifying human capabilities.</strong></p>
                 <div class="metrics">
-                    <div class="metric-card"><strong>3x</strong><span>Faster Analysis</span></div>
-                    <div class="metric-card"><strong>40%</strong><span>More Strategy Time</span></div>
-                    <div class="metric-card"><strong>25%</strong><span>Better Satisfaction</span></div>
+                    <div class="metric-card reveal"><strong>3x</strong><span>Faster Analysis</span></div>
+                    <div class="metric-card reveal"><strong>40%</strong><span>More Strategy Time</span></div>
+                    <div class="metric-card reveal"><strong>25%</strong><span>Better Satisfaction</span></div>
                 </div>
             </div>
         </div>
@@ -48,23 +56,27 @@
 
     <section id="about" class="what-we-do">
         <div class="container">
-            <h2>What We Do</h2>
-            <p class="section-intro">We design AI-human partnerships that transform how teams work. Instead of replacing people with automation, we create hybrid systems where AI handles the grunt work, freeing your team for what matters.</p>
+            <h2 class="reveal">What We Do</h2>
+            <p class="section-intro reveal">We design AI-human partnerships that transform how teams work. Instead of replacing people with automation, we create hybrid systems where AI handles the grunt work, freeing your team for what matters.</p>
             
             <div class="grid">
-                <div class="feature-card">
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">⚙️</div>
                     <h3>Strategic Implementation</h3>
                     <p>AI that respects human dignity and enhances existing workflows.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">🔄</div>
                     <h3>Change Management</h3>
                     <p>Proven processes that bring your team along for the journey.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">📈</div>
                     <h3>Continuous Optimization</h3>
                     <p>Systems that evolve alongside your business needs.</p>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal">
+                    <div class="feature-icon" aria-hidden="true">🤝</div>
                     <h3>Ethical Frameworks</h3>
                     <p>Prioritizing people over pure efficiency at every stage.</p>
                 </div>
@@ -75,43 +87,43 @@
     <section id="ethics" class="ethics">
         <div class="container">
             <div class="ethics-header">
-                <h2>Our Ethical AI Framework</h2>
-                <p>AI should amplify human potential, not replace it. These principles guide every project we undertake.</p>
+                <h2 class="reveal">Our Ethical AI Framework</h2>
+                <p class="reveal">AI should amplify human potential, not replace it. These principles guide every project we undertake.</p>
             </div>
             
             <div class="ethics-list">
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">01</span>
                     <div><strong>Human Dignity First</strong>: Every solution must make work more meaningful, not obsolete.</div>
                 </div>
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">02</span>
                     <div><strong>Transparency</strong>: No black boxes. We explain how systems work in plain language.</div>
                 </div>
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">03</span>
                     <div><strong>Fairness</strong>: Active testing to reduce and mitigate algorithmic bias.</div>
                 </div>
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">04</span>
                     <div><strong>Human Oversight</strong>: AI suggests, but humans make the final decisions.</div>
                 </div>
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">05</span>
-                    <div><strong>Privacy & Data</strong>: Military-grade security and full GDPR/CCPA compliance.</div>
+                    <div><strong>Privacy &amp; Data</strong>: Military-grade security and full GDPR/CCPA compliance.</div>
                 </div>
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">06</span>
                     <div><strong>Continuous Learning</strong>: Built-in feedback loops to monitor for drift.</div>
                 </div>
-                <div class="ethic-point">
+                <div class="ethic-point reveal">
                     <span class="num">07</span>
                     <div><strong>True Partnership</strong>: We collaborate with your teams, we don't dictate to them.</div>
                 </div>
             </div>
 
-            <div class="commitment">
-                <p><strong>Our Commitment:</strong> Before any implementation, we conduct an "AI Impact Assessment" to ensure alignment. We'd rather walk away from a project than compromise our values.</p>
+            <div class="commitment reveal">
+                <p><strong>Our Commitment:</strong> Before any implementation, we conduct an &ldquo;AI Impact Assessment&rdquo; to ensure alignment. We&rsquo;d rather walk away from a project than compromise our values.</p>
             </div>
         </div>
     </section>
@@ -127,9 +139,40 @@
         </div>
     </footer>
 
+<script>
+    // Mobile menu toggle
+    const menuToggle = document.querySelector('.mobile-menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        menuToggle.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+
+    // Close mobile menu when a link is clicked
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinks.classList.remove('open');
+            menuToggle.classList.remove('active');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    // Scroll-reveal animation using IntersectionObserver
+    const revealElements = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => observer.observe(el));
+</script>
+
 </body>
-
 </html>
-
-
 
