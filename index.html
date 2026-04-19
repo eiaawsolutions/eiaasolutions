@@ -1,135 +1,394 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EIAAW SOLUTIONS | Ethical AI-Human Partnerships</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EIAAW Solutions — Ethical AI · Human Partnerships</title>
+  <meta name="description" content="EIAAW Solutions designs AI-human partnerships that amplify teams instead of replacing them. Ethical, transparent, and built for the long run.">
+  <link rel="icon" type="image/png" href="brand/shield.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- SVG grain filter used by .figure-elegant .grain -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="eiaaw-grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" stitchTiles="stitch"/>
+      <feColorMatrix values="0 0 0 0 0.06  0 0 0 0 0.1  0 0 0 0 0.11  0 0 0 0.8 0"/>
+    </filter>
+  </svg>
 </head>
 <body>
 
-<nav>
-    <div class="container nav-container">
-    <div class="logo-box">
-    <img src="logo.png" alt="EIAAW SOLUTIONS" class="logo-img">
-    <span class="logo-text">EIAAW SOLUTIONS</span>
-</div>
-        <ul class="nav-links">
-            <li><a href="#about">What We Do</a></li>
-            <li><a href="#ethics">Ethical Framework</a></li>
-            <li><a href="mailto:eiaawsolutions@gmail.com" class="cta-btn-sm">Contact Us</a></li>
-        </ul>
-    </div>
+<nav class="nav" id="siteNav">
+  <div class="wrap nav-inner">
+    <a href="/" class="nav-logo">
+      <img src="brand/shield.png" alt="EIAAW Solutions shield">
+      <span class="nav-logo-text">
+        <strong>EIAAW SOLUTIONS</strong>
+        <small>AI &middot; Human Partnerships</small>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li class="hide-sm"><a href="#approach">Approach</a></li>
+      <li class="hide-sm"><a href="#ethics">Ethics</a></li>
+      <li><a href="products.html">Products</a></li>
+      <li><a href="mailto:eiaawsolutions@gmail.com" class="btn btn-primary magnetic">Contact <span class="arrow">&rarr;</span></a></li>
+    </ul>
+  </div>
 </nav>
 
-    <header class="hero">
-        <div class="container">
-            <h1>Building the Future of Work, <br><span class="highlight">One Partnership at a Time</span></h1>
-            <p class="tagline">Where human creativity meets AI precision to deliver strategic AI-human partnerships.</p>
-            <div class="hero-btns">
-                <a href="#about" class="cta-btn">Learn More</a>
-            </div>
-        </div>
-    </header>
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="wrap">
+    <div class="hero-eyebrow-row rvl">
+      <span class="eyebrow">EIAAW &middot; 2026</span>
+      <div class="availability"><span class="dot"></span> Taking on new partnerships &mdash; Q2 2026</div>
+    </div>
 
-    <section class="pitch">
-        <div class="container">
-            <div class="pitch-content">
-                <h2>Better Together</h2>
-                <p>We help companies build AI-human teams that outperform either alone. While others focus on replacing workers to cut costs, <strong>we focus on amplifying human capabilities.</strong></p>
-                <div class="metrics">
-                    <div class="metric-card"><strong>3x</strong><span>Faster Analysis</span></div>
-                    <div class="metric-card"><strong>40%</strong><span>More Strategy Time</span></div>
-                    <div class="metric-card"><strong>25%</strong><span>Better Satisfaction</span></div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <h1 class="display kinetic hero-display">
+      <span class="line">Building the future</span>
+      <span class="line"><span class="indent">of work, <em>one partnership</em></span></span>
+      <span class="line"><span class="indent">at a time.</span></span>
+    </h1>
 
-    <section id="about" class="what-we-do">
-        <div class="container">
-            <h2>What We Do</h2>
-            <p class="section-intro">We design AI-human partnerships that transform how teams work. Instead of replacing people with automation, we create hybrid systems where AI handles the grunt work, freeing your team for what matters.</p>
-            
-            <div class="grid">
-                <div class="feature-card">
-                    <h3>Strategic Implementation</h3>
-                    <p>AI that respects human dignity and enhances existing workflows.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Change Management</h3>
-                    <p>Proven processes that bring your team along for the journey.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Continuous Optimization</h3>
-                    <p>Systems that evolve alongside your business needs.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Ethical Frameworks</h3>
-                    <p>Prioritizing people over pure efficiency at every stage.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="hero-meta-row">
+      <div class="meta-text rvl">
+        <p class="lead">Where human creativity meets AI precision. We help companies build AI-human teams that outperform either alone &mdash; without replacing the people who make the work worth doing.</p>
+      </div>
+      <div class="meta-ctas rvl">
+        <a href="products.html" class="btn btn-primary btn-lg magnetic">See our products <span class="arrow">&rarr;</span></a>
+        <a href="#approach" class="btn btn-ghost">Our approach</a>
+      </div>
+    </div>
 
-    <section id="ethics" class="ethics">
-        <div class="container">
-            <div class="ethics-header">
-                <h2>Our Ethical AI Framework</h2>
-                <p>AI should amplify human potential, not replace it. These principles guide every project we undertake.</p>
-            </div>
-            
-            <div class="ethics-list">
-                <div class="ethic-point">
-                    <span class="num">01</span>
-                    <div><strong>Human Dignity First</strong>: Every solution must make work more meaningful, not obsolete.</div>
-                </div>
-                <div class="ethic-point">
-                    <span class="num">02</span>
-                    <div><strong>Transparency</strong>: No black boxes. We explain how systems work in plain language.</div>
-                </div>
-                <div class="ethic-point">
-                    <span class="num">03</span>
-                    <div><strong>Fairness</strong>: Active testing to reduce and mitigate algorithmic bias.</div>
-                </div>
-                <div class="ethic-point">
-                    <span class="num">04</span>
-                    <div><strong>Human Oversight</strong>: AI suggests, but humans make the final decisions.</div>
-                </div>
-                <div class="ethic-point">
-                    <span class="num">05</span>
-                    <div><strong>Privacy & Data</strong>: Military-grade security and full GDPR/CCPA compliance.</div>
-                </div>
-                <div class="ethic-point">
-                    <span class="num">06</span>
-                    <div><strong>Continuous Learning</strong>: Built-in feedback loops to monitor for drift.</div>
-                </div>
-                <div class="ethic-point">
-                    <span class="num">07</span>
-                    <div><strong>True Partnership</strong>: We collaborate with your teams, we don't dictate to them.</div>
-                </div>
-            </div>
+    <figure class="figure-elegant hero-figure rvl" data-parallax>
+      <img src="media/hero.jpg" alt="Teams collaborating across an open workshop" loading="lazy">
+      <div class="grain" style="filter:url(#eiaaw-grain)"></div>
+    </figure>
+  </div>
+</header>
 
-            <div class="commitment">
-                <p><strong>Our Commitment:</strong> Before any implementation, we conduct an "AI Impact Assessment" to ensure alignment. We'd rather walk away from a project than compromise our values.</p>
-            </div>
-        </div>
-    </section>
+<section class="section-pad pitch" id="pitch">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="pitch-copy rvl">
+        <span class="eyebrow">Better together</span>
+        <h2 class="section-h">We amplify <em>humans</em>, we don&rsquo;t replace them.</h2>
+        <p>While others race to cut costs by automating people out, <strong>we design systems that give your team more room to think</strong>. AI handles the repetitive grunt work. Your people focus on strategy, craft, and the decisions that actually matter.</p>
+      </div>
 
-    <footer>
-        <div class="container">
-            <h3>Questions about our approach?</h3>
-            <p>Ready to elevate your team through strategic AI?</p>
-            <a href="mailto:eiaawsolutions@gmail.com" class="footer-email">eiaawsolutions@gmail.com</a>
-            <div class="footer-bottom">
-                &copy; 2026 EIAAW SOLUTIONS. All rights reserved.
-            </div>
+      <div class="metrics rvl">
+        <div class="metric-card"><span class="metric-num"><span class="count" data-to="3">0</span>&times;</span><span class="metric-label">Faster analysis cycles</span></div>
+        <div class="metric-card"><span class="metric-num"><span class="count" data-to="40">0</span>%</span><span class="metric-label">More time on strategy</span></div>
+        <div class="metric-card"><span class="metric-num"><span class="count" data-to="25">0</span>%</span><span class="metric-label">Higher team satisfaction</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad what-we-do" id="approach">
+  <div class="wrap">
+    <div class="section-head rvl">
+      <span class="label eyebrow">What we do</span>
+      <h2 class="title section-h">Four moves that turn AI from threat into <em>leverage</em>.</h2>
+      <span class="aside">01 &rarr; 04</span>
+    </div>
+
+    <div class="capabilities">
+      <article class="capability rvl">
+        <div class="thumb-elegant cap-thumb"><img src="media/strategy.jpg" alt="Strategic workspace" loading="lazy"></div>
+        <div class="cap-body">
+          <span class="cap-num">01 &middot; Strategic Implementation</span>
+          <h3>AI that respects the work</h3>
+          <p>We embed AI into existing workflows with human dignity at the centre &mdash; enhancing judgement, not replacing it.</p>
         </div>
-    </footer>
+      </article>
+
+      <article class="capability rvl">
+        <div class="thumb-elegant cap-thumb"><img src="media/change.jpg" alt="Change workshop" loading="lazy"></div>
+        <div class="cap-body">
+          <span class="cap-num">02 &middot; Change Management</span>
+          <h3>Bring the team with you</h3>
+          <p>Proven processes that turn scepticism into ownership. Your people learn the tools and shape how they&rsquo;re used.</p>
+        </div>
+      </article>
+
+      <article class="capability rvl">
+        <div class="thumb-elegant cap-thumb"><img src="media/optimize.jpg" alt="Continuous optimization dashboards" loading="lazy"></div>
+        <div class="cap-body">
+          <span class="cap-num">03 &middot; Continuous Optimization</span>
+          <h3>Systems that evolve</h3>
+          <p>We stay close after launch. Every model, every prompt, every workflow keeps improving alongside your business.</p>
+        </div>
+      </article>
+
+      <article class="capability rvl">
+        <div class="thumb-elegant cap-thumb"><img src="media/frameworks.jpg" alt="Ethical framework documents" loading="lazy"></div>
+        <div class="cap-body">
+          <span class="cap-num">04 &middot; Ethical Frameworks</span>
+          <h3>People before efficiency</h3>
+          <p>Every engagement starts with an AI Impact Assessment. We&rsquo;d rather walk away than ship something we wouldn&rsquo;t stand behind.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad products" id="products-preview">
+  <div class="wrap">
+    <div class="section-head rvl">
+      <span class="label eyebrow">Our products</span>
+      <h2 class="title section-h">Two ways to put an <em>ethical AI</em> team to work tomorrow.</h2>
+      <span class="aside">Live &middot; 2026</span>
+    </div>
+
+    <div class="products-grid">
+      <a href="https://sa.eiaawsolutions.com" target="_blank" rel="noopener" class="product-card rvl">
+        <div class="pc-media"><img src="media/sa-product.jpg" alt="Sales Agent workspace" loading="lazy"></div>
+        <div class="pc-body">
+          <span class="pc-url">sa.eiaawsolutions.com</span>
+          <h3>Sales Agent</h3>
+          <p>An AI sales partner that generates leads, scores them with reasoning, writes personalised outreach, and even talks to prospects over voice &mdash; so your team closes more of the right deals.</p>
+          <div class="pc-foot">
+            <span class="btn btn-ghost">Visit Sales Agent <span class="arrow">&rarr;</span></span>
+          </div>
+        </div>
+      </a>
+
+      <a href="https://ads.eiaawsolutions.com" target="_blank" rel="noopener" class="product-card rvl">
+        <div class="pc-media"><img src="media/ads-product.jpg" alt="Ads studio creative wall" loading="lazy"></div>
+        <div class="pc-body">
+          <span class="pc-url">ads.eiaawsolutions.com</span>
+          <h3>Ai Ads Agency</h3>
+          <p>A full-stack creative agency in one workspace. Extract brand DNA, plan campaigns, generate on-brand ads, audit platforms, and scale what works &mdash; with humans always in the loop.</p>
+          <div class="pc-foot">
+            <span class="btn btn-ghost">Visit Ai Ads Agency <span class="arrow">&rarr;</span></span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad" id="ethics">
+  <div class="wrap">
+    <div class="section-head rvl">
+      <span class="label eyebrow">Our Framework</span>
+      <h2 class="title section-h">Seven principles we don&rsquo;t <em>negotiate</em> on.</h2>
+      <span class="aside">Ethics &middot; 01&ndash;07</span>
+    </div>
+
+    <div class="ethics-grid">
+      <figure class="figure-elegant ethics-figure rvl" data-parallax>
+        <img src="media/ethics.jpg" alt="Hands working together on a shared surface" loading="lazy">
+        <div class="grain" style="filter:url(#eiaaw-grain)"></div>
+      </figure>
+
+      <div class="ethics-list">
+        <div class="ethic-point rvl"><span class="num">01</span><div><strong>Human Dignity First</strong><p>Every solution must make work more meaningful, not obsolete.</p></div></div>
+        <div class="ethic-point rvl"><span class="num">02</span><div><strong>Transparency</strong><p>No black boxes. We explain how systems work in plain language anyone on the team can follow.</p></div></div>
+        <div class="ethic-point rvl"><span class="num">03</span><div><strong>Fairness</strong><p>Active, measured testing to reduce and mitigate algorithmic bias &mdash; not a one-off audit.</p></div></div>
+        <div class="ethic-point rvl"><span class="num">04</span><div><strong>Human Oversight</strong><p>AI suggests, drafts, and analyses. Humans make the final call on anything that matters.</p></div></div>
+        <div class="ethic-point rvl"><span class="num">05</span><div><strong>Privacy &amp; Data</strong><p>Military-grade security, full GDPR / CCPA compliance, and clear data residency choices.</p></div></div>
+        <div class="ethic-point rvl"><span class="num">06</span><div><strong>Continuous Learning</strong><p>Built-in feedback loops to detect drift, measure impact, and improve the system over time.</p></div></div>
+        <div class="ethic-point rvl"><span class="num">07</span><div><strong>True Partnership</strong><p>We collaborate with your teams &mdash; we don&rsquo;t dictate. The people doing the work know it best.</p></div></div>
+      </div>
+
+      <div class="commitment rvl">
+        <p><strong>Our commitment.</strong> Before any implementation, we run an AI Impact Assessment to make sure the people, the work, and the values all still line up. We&rsquo;d rather walk away than compromise on any of the three.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="wrap">
+    <div class="grid-12">
+      <div class="cta-copy rvl">
+        <span class="eyebrow">Start a conversation</span>
+        <h2 class="section-h">Ready to elevate your team through <em>strategic AI?</em></h2>
+        <p>Tell us about your team, your workflow, and the outcome you&rsquo;re trying to unlock. We&rsquo;ll come back with a short honest read on whether an AI-human partnership is the right move.</p>
+      </div>
+      <div class="cta-actions rvl">
+        <a href="mailto:eiaawsolutions@gmail.com" class="btn btn-primary btn-lg magnetic">Email the team <span class="arrow">&rarr;</span></a>
+        <a href="products.html" class="btn btn-outline">See products</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-grid">
+    <div class="footer-lockup-blk">
+      <a href="/" class="nav-logo lockup-big">
+        <img src="brand/shield.png" alt="EIAAW Solutions shield">
+        <span class="nav-logo-text">
+          <strong>EIAAW SOLUTIONS</strong>
+          <small>AI &middot; Human Partnerships</small>
+        </span>
+      </a>
+      <p class="footer-statement">Ethical AI that <em>amplifies</em> the people doing the work &mdash; instead of quietly replacing them.</p>
+    </div>
+
+    <div class="footer-col">
+      <h4>Products</h4>
+      <a href="https://sa.eiaawsolutions.com" target="_blank" rel="noopener">Sales Agent</a>
+      <a href="https://ads.eiaawsolutions.com" target="_blank" rel="noopener">Ai Ads Agency</a>
+      <a href="products.html">All products</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#approach">Approach</a>
+      <a href="#ethics">Ethics</a>
+      <a href="mailto:eiaawsolutions@gmail.com">Contact</a>
+    </div>
+
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="mailto:eiaawsolutions@gmail.com?subject=Privacy">Privacy</a>
+      <a href="mailto:eiaawsolutions@gmail.com?subject=Terms">Terms</a>
+      <a href="mailto:eiaawsolutions@gmail.com?subject=Security">Security</a>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <span>&copy; 2026 EIAAW SOLUTIONS &middot; All rights reserved</span>
+    <span>Kuala Lumpur &middot; Singapore</span>
+  </div>
+</footer>
+
+<button class="chat-toggle" aria-label="Open chat">&#128172;</button>
+
+<script>
+/* ============================================================
+   EIAAW MOTION LAYER
+   Copied from landing.html (source of truth).
+   Respects prefers-reduced-motion.
+   ============================================================ */
+(function(){
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- Kinetic type: split display into word spans ---
+  document.querySelectorAll('.kinetic').forEach((el) => {
+    const lines = el.querySelectorAll('.line');
+    lines.forEach((line) => {
+      const frag = document.createDocumentFragment();
+      line.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const parts = node.textContent.split(/(\s+)/);
+          parts.forEach(p => {
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+            const s = document.createElement('span'); s.className = 'word'; s.textContent = p;
+            frag.appendChild(s);
+          });
+        } else if (node.nodeType === Node.ELEMENT_NODE) {
+          const wrap = document.createElement('span');
+          wrap.className = 'word';
+          wrap.appendChild(node.cloneNode(true));
+          frag.appendChild(wrap);
+        }
+      });
+      line.innerHTML = '';
+      line.appendChild(frag);
+    });
+  });
+
+  window.addEventListener('load', () => {
+    const words = document.querySelectorAll('.kinetic .word');
+    if (reduce) { words.forEach(w => w.classList.add('in')); return; }
+    words.forEach((w, i) => setTimeout(() => w.classList.add('in'), 120 + i * 70));
+  });
+
+  // --- Scroll reveal ---
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.rvl').forEach(el => io.observe(el));
+
+  // --- Nav scrolled state ---
+  const nav = document.getElementById('siteNav');
+  const onNavScroll = () => { if (nav) nav.classList.toggle('scrolled', window.scrollY > 12); };
+  window.addEventListener('scroll', onNavScroll, { passive: true });
+  onNavScroll();
+
+  // --- Count-up numbers ---
+  const countEls = document.querySelectorAll('.count');
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      const el = e.target;
+      const target = parseInt(el.dataset.to || '0', 10);
+      if (reduce) { el.textContent = target; countIO.unobserve(el); return; }
+      const dur = 1400; const start = performance.now();
+      const tick = (t) => {
+        const p = Math.min(1, (t - start) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(target * eased);
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      countIO.unobserve(el);
+    });
+  }, { threshold: 0.4 });
+  countEls.forEach(el => countIO.observe(el));
+
+  // --- Magnetic buttons ---
+  if (!reduce) {
+    document.querySelectorAll('.magnetic').forEach((btn) => {
+      let raf = null;
+      const strength = 0.28;
+      btn.addEventListener('mousemove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const x = e.clientX - (r.left + r.width / 2);
+        const y = e.clientY - (r.top + r.height / 2);
+        if (raf) cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          btn.style.transform = `translate(${x * strength}px, ${y * strength}px)`;
+        });
+      });
+      btn.addEventListener('mouseleave', () => {
+        if (raf) cancelAnimationFrame(raf);
+        btn.style.transform = '';
+      });
+    });
+  }
+
+  // --- Parallax on [data-parallax] images ---
+  if (!reduce) {
+    const pxEls = document.querySelectorAll('[data-parallax]');
+    let ticking = false;
+    const onScrollPx = () => {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(() => {
+        pxEls.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          const vh = window.innerHeight;
+          const center = r.top + r.height / 2;
+          const delta = (center - vh / 2) / vh;
+          const y = Math.max(-40, Math.min(40, -delta * 28));
+          const img = el.matches('img') ? el : el.querySelector('img');
+          if (img) img.style.transform = `translateY(${y}px) scale(1.05)`;
+        });
+        ticking = false;
+      });
+    };
+    window.addEventListener('scroll', onScrollPx, { passive: true });
+    onScrollPx();
+  }
+
+  // --- Chat toggle (mailto fallback) ---
+  const chat = document.querySelector('.chat-toggle');
+  if (chat) chat.addEventListener('click', () => {
+    window.location.href = 'mailto:eiaawsolutions@gmail.com?subject=Hello%20EIAAW';
+  });
+})();
+</script>
 
 </body>
-
 </html>
-
-
-
