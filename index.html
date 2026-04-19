@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20260420e">
+  <link rel="stylesheet" href="style.css?v=20260420f">
 
   <!-- SVG grain filter used by .figure-elegant .grain -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -36,7 +36,7 @@
       <li class="hide-sm"><a href="#approach">Approach</a></li>
       <li class="hide-sm"><a href="#ethics">Ethics</a></li>
       <li><a href="products.html">Products</a></li>
-      <li><a href="mailto:eiaawsolutions@gmail.com" class="btn btn-primary magnetic">Contact <span class="arrow">&rarr;</span></a></li>
+      <li><a href="#" data-eiaaw="contact" class="btn btn-primary magnetic">Talk to us <span class="arrow">&rarr;</span></a></li>
     </ul>
   </div>
 </nav>
@@ -214,8 +214,8 @@
         <p>Tell us about your team, your workflow, and the outcome you&rsquo;re trying to unlock. We&rsquo;ll come back with a short honest read on whether an AI-human partnership is the right move.</p>
       </div>
       <div class="cta-actions rvl">
-        <a href="mailto:eiaawsolutions@gmail.com" class="btn btn-primary btn-lg magnetic">Email the team <span class="arrow">&rarr;</span></a>
-        <a href="products.html" class="btn btn-outline">See products</a>
+        <a href="#" data-eiaaw="agent" class="btn btn-primary btn-lg magnetic">Talk to the agent <span class="arrow">&rarr;</span></a>
+        <a href="#" data-eiaaw="contact" class="btn btn-outline">Talk to us</a>
       </div>
     </div>
   </div>
@@ -245,7 +245,7 @@
       <h4>Company</h4>
       <a href="#approach">Approach</a>
       <a href="#ethics">Ethics</a>
-      <a href="mailto:eiaawsolutions@gmail.com">Contact</a>
+      <a href="#" data-eiaaw="contact">Contact</a>
     </div>
 
     <div class="footer-col">
@@ -382,13 +382,10 @@
     onScrollPx();
   }
 
-  // --- Chat toggle (mailto fallback) ---
-  const chat = document.querySelector('.chat-toggle');
-  if (chat) chat.addEventListener('click', () => {
-    window.location.href = 'mailto:eiaawsolutions@gmail.com?subject=Hello%20EIAAW';
-  });
+  // Chat toggle is wired by eiaaw-connect.js
 })();
 </script>
+<script src="eiaaw-connect.js?v=20260420e" defer></script>
 
 </body>
 </html>
