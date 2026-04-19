@@ -263,8 +263,8 @@ img { max-width: 100%; display: block; }
   position: relative;
   overflow: hidden;
 }
-.btn-primary { background: var(--ink); color: var(--bg); }
-.btn-primary:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-primary { background: var(--ink); color: #FFFFFF; font-weight: 600; }
+.btn-primary:hover { background: var(--primary-dark); color: #FFFFFF; transform: translateY(-1px); }
 .btn-outline { background: transparent; color: var(--ink); border-color: var(--ink); }
 .btn-outline:hover { background: var(--ink); color: var(--bg); }
 .btn-ghost { background: transparent; color: var(--ink); padding: 13px 4px; border-radius: 0; }
@@ -680,12 +680,14 @@ img { max-width: 100%; display: block; }
   padding: 16px 0;
   border-bottom: 1px solid var(--line);
   display: grid;
-  grid-template-columns: 40px 1fr;
+  grid-template-columns: 40px minmax(0, 1fr);
   gap: 14px;
   color: var(--ink-2);
   font-size: 15px;
   line-height: 1.55;
 }
+.product-detail ul li > div { min-width: 0; }
+.product-detail ul li strong { color: var(--ink); font-weight: 600; display: block; margin-bottom: 4px; }
 .product-detail ul li::before {
   content: attr(data-n);
   font-family: var(--mono);
