@@ -1,0 +1,37 @@
+# EIAAW Solutions
+
+> EIAAW Solutions builds ethical AI-human partnerships — products that amplify the people doing the work instead of replacing them. Based in Kuala Lumpur, serving Malaysia and APAC.
+
+EIAAW Solutions Sdn. Bhd. is a Malaysian AI company that builds AI-native business platforms with humans in every approval gate. Every engagement starts with an AI Impact Assessment grounded in seven non-negotiable ethics principles: Human Dignity First, Transparency, Fairness, Human Oversight, Privacy & Data, Continuous Learning, and True Partnership.
+
+We sell three end-to-end products — one for revenue, one for creative, one for the people behind the work — all built on the same EIAAW ethics framework.
+
+## Products
+
+- [Sales Agent (sa.eiaawsolutions.com)](https://sa.eiaawsolutions.com): An AI sales partner that generates qualified leads with reasoning, drafts personalised email + LinkedIn outreach, runs voice AI for first conversations, and supports content. Humans control strategy and close. From RM 99 / month.
+- [Ai Ads Agency (ads.eiaawsolutions.com)](https://ads.eiaawsolutions.com): A full paid-advertising studio. Brand DNA extraction from any website, multi-platform campaign planning, on-brand AI ad creatives, and 250+ audit checks across Google, Meta, TikTok, LinkedIn, Microsoft, Apple and YouTube. Budget, ROAS / CPA modelling and A/B-test design built in.
+- [Workforce (ep.eiaawsolutions.com)](https://ep.eiaawsolutions.com): Run an entire organisation in one click. EIAAW Workforce unifies three departments — HR, IT, and Accounting — on a single AI-native, multi-tenant backbone. The full employee journey, IT asset workflow with auto-AARF, full HRM (leave, payroll, EA forms, attendance, EPF / SOCSO / EIS / PCB statutory submissions for LHDN, KWSP, PERKESO, HRDC) and a full-fledged accounting ledger (Chart of Accounts, GL, AR/AP, invoices, POs, banking, fixed assets, budgeting, tax returns) move on one tenant with zero CSV exports. Postgres Row-Level Security per tenant. AI assistant grounded on tenant data with row-level citations. From USD 6 per active employee per month, 14-day trial, no credit card.
+
+## Company
+
+- [Homepage (eiaawsolutions.com)](https://eiaawsolutions.com/)
+- [All products (eiaawsolutions.com/products.html)](https://eiaawsolutions.com/products.html)
+- Email: eiaawsolutions@gmail.com
+- Areas served: Malaysia, Singapore, Indonesia, Thailand, Philippines, Vietnam — Asia-Pacific
+- Headquartered in: Kuala Lumpur, Malaysia
+- Languages: English, Bahasa Malaysia
+
+## Ethics framework
+
+1. Human Dignity First — every solution must make work more meaningful, not obsolete.
+2. Transparency — no black boxes; we explain how systems work in plain language.
+3. Fairness — active, measured testing to reduce algorithmic bias.
+4. Human Oversight — AI suggests, drafts, analyses; humans make the final call.
+5. Privacy & Data — military-grade security, GDPR / CCPA / PDPA-aligned, clear data residency.
+6. Continuous Learning — built-in feedback loops to detect drift and measure impact.
+7. True Partnership — we collaborate with teams, we don't dictate.
+
+## Social
+
+- [LinkedIn](https://www.linkedin.com/in/eiaawsolutions)
+- [YouTube](https://www.youtube.com/@EIAAWSOLUTIONS)

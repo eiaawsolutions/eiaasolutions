@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://eiaawsolutions.com/</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -17,7 +17,7 @@
   </url>
   <url>
     <loc>https://eiaawsolutions.com/products.html</loc>
-    <lastmod>2026-04-26</lastmod>
+    <lastmod>2026-04-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -28,5 +28,15 @@
       <image:loc>https://eiaawsolutions.com/media/ads-product.jpg</image:loc>
       <image:title>EIAAW Ai Ads Agency</image:title>
     </image:image>
+    <image:image>
+      <image:loc>https://eiaawsolutions.com/media/ep-product.jpg</image:loc>
+      <image:title>EIAAW Workforce</image:title>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://eiaawsolutions.com/llms.txt</loc>
+    <lastmod>2026-04-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

@@ -110,14 +110,19 @@ If any preview shows the wrong image / text, the cause is almost always platform
 
 | Tool | What to check |
 |---|---|
-| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/` — should detect: Organization, WebSite, SoftwareApplication (×2), FAQPage. No errors. |
-| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/products.html` — should detect: Organization, BreadcrumbList, ItemList (with 2 SoftwareApplication children) |
+| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/` — should detect: Organization, WebSite, SoftwareApplication (×3 — Sales Agent, Ai Ads Agency, Workforce), FAQPage. No errors. |
+| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/products.html` — should detect: Organization, BreadcrumbList, ItemList (numberOfItems: 3, with 3 SoftwareApplication children), FAQPage, Service ×3 (per product, with areaServed) |
 | <https://validator.schema.org/> | Same URLs — broader schema check, will flag warnings Google's tool ignores |
+| `curl -I https://eiaawsolutions.com/llms.txt` | HTTP/2 200, content-type: `text/plain` — confirms the AI-readable summary is reachable for ChatGPT/Claude/Perplexity/Gemini/Apple Intelligence crawlers |
 
 Expected outcomes:
-- ✅ FAQPage on homepage → **eligible for FAQ rich result** (collapsible Q&A in Google results)
+
+- ✅ FAQPage on homepage and products page → **eligible for FAQ rich result** (collapsible Q&A in Google results) and high-density Q&A surface for AI Overviews / Perplexity / ChatGPT citations
 - ✅ Organization with sameAs → feeds Knowledge Panel
 - ✅ BreadcrumbList on /products.html → **breadcrumb shown in Google result** instead of raw URL
+- ✅ Service schemas with `areaServed` (MY/SG/ID/TH/PH/VN) → AI Overviews can surface EIAAW for region-scoped product queries
+- ✅ `llms.txt` at root + `<link rel="alternate" type="text/plain">` on every page → discoverable, structured AI summary
+- ✅ `hreflang` (en, en-MY, en-SG, x-default) → correct regional surfacing in Google
 - ✅ Product rich result eligibility once we add `aggregateRating` and/or `review` (future enhancement, not done yet)
 
 ---
