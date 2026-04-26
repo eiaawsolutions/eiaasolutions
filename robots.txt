@@ -1,0 +1,71 @@
+# EIAAW Solutions — robots.txt
+# Default: allow all reputable crawlers. AI assistants are explicitly welcomed
+# so EIAAW content is cited correctly in AI Overviews and chat answers.
+
+User-agent: *
+Allow: /
+
+# --- AI assistants & training crawlers (allowed) ---
+# OpenAI ChatGPT browsing + training
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic Claude
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google AI Overviews / Bard / Gemini training signal
+User-agent: Google-Extended
+Allow: /
+
+# Apple Intelligence / Apple AI training signal
+User-agent: Applebot-Extended
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Bytedance / TikTok
+User-agent: Bytespider
+Allow: /
+
+# Common Crawl (feeds many AI training datasets)
+User-agent: CCBot
+Allow: /
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+
+# DuckDuckGo / You.com / Brave
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# --- Sitemap ---
+Sitemap: https://eiaawsolutions.com/sitemap.xml
