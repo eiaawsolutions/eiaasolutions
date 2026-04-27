@@ -1,0 +1,15 @@
+{
+  "name": "eiaawsolutions",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EIAAW Solutions parent marketing site (static).",
+  "scripts": {
+    "start": "serve --no-clipboard --no-port-switching ."
+  },
+  "dependencies": {
+    "serve": "14.2.4"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
