@@ -1,0 +1,64 @@
+name: Uptime monitor
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Apex returns 200
+        run: |
+          status=$(curl -sS -o /dev/null -w "%{http_code}" --max-time 15 https://eiaawsolutions.com/)
+          echo "apex status: $status"
+          if [ "$status" != "200" ]; then
+            echo "::error::Apex eiaawsolutions.com returned $status (expected 200)"
+            exit 1
+          fi
+
+      - name: WWW redirects to apex with 301
+        run: |
+          response=$(curl -sS -o /dev/null --max-time 15 \
+            -w "status=%{http_code}\nlocation=%{redirect_url}\n" \
+            https://www.eiaawsolutions.com/)
+          echo "$response"
+          status=$(echo "$response" | grep '^status=' | cut -d= -f2)
+          location=$(echo "$response" | grep '^location=' | cut -d= -f2-)
+          if [ "$status" != "301" ]; then
+            echo "::error::www.eiaawsolutions.com returned $status (expected 301)"
+            exit 1
+          fi
+          case "$location" in
+            https://eiaawsolutions.com/*|https://eiaawsolutions.com)
+              echo "redirect target ok: $location"
+              ;;
+            *)
+              echo "::error::www redirect target wrong: $location (expected https://eiaawsolutions.com/...)"
+              exit 1
+              ;;
+          esac
+
+      - name: WWW redirect preserves path + query
+        run: |
+          target=$(curl -sS -o /dev/null --max-time 15 \
+            -w "%{redirect_url}" \
+            "https://www.eiaawsolutions.com/products?utm=monitor")
+          echo "preserved target: $target"
+          if [ "$target" != "https://eiaawsolutions.com/products?utm=monitor" ]; then
+            echo "::error::path/query not preserved through redirect; got: $target"
+            exit 1
+          fi
+
+      - name: Following redirect lands on 200
+        run: |
+          status=$(curl -sSL -o /dev/null --max-time 20 \
+            -w "%{http_code}" \
+            https://www.eiaawsolutions.com/)
+          echo "after redirect status: $status"
+          if [ "$status" != "200" ]; then
+            echo "::error::Following www redirect returned $status (expected 200)"
+            exit 1
+          fi
