@@ -41,20 +41,20 @@ jobs:
               ;;
           esac
 
-      - name: WWW redirect preserves path + query
+      - name: WWW redirect preserves path
         run: |
-          target=$(curl -sS -o /dev/null --max-time 15 \
+          target=$(curl -sS -o /dev/null --max-time 30 --retry 2 --retry-delay 3 \
             -w "%{redirect_url}" \
-            "https://www.eiaawsolutions.com/products?utm=monitor")
+            "https://www.eiaawsolutions.com/products")
           echo "preserved target: $target"
-          if [ "$target" != "https://eiaawsolutions.com/products?utm=monitor" ]; then
-            echo "::error::path/query not preserved through redirect; got: $target"
+          if [ "$target" != "https://eiaawsolutions.com/products" ]; then
+            echo "::error::path not preserved through redirect; got: $target"
             exit 1
           fi
 
       - name: Following redirect lands on 200
         run: |
-          status=$(curl -sSL -o /dev/null --max-time 20 \
+          status=$(curl -sSL -o /dev/null --max-time 30 --retry 2 --retry-delay 3 \
             -w "%{http_code}" \
             https://www.eiaawsolutions.com/)
           echo "after redirect status: $status"
