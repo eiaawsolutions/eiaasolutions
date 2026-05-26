@@ -338,5 +338,23 @@
     document.querySelectorAll('.chat-toggle').forEach(btn => {
       btn.addEventListener('click', (ev) => { ev.preventDefault(); toggleChat(); }, { capture: true });
     });
+    maybeOpenFromHash();
   });
+
+  // Deep-link support: #chat opens the chatbot, #contact opens the enquiry form,
+  // #agent starts the voice agent. Lets external links (Facebook, email, etc.)
+  // land users straight into the channel they came for.
+  function maybeOpenFromHash() {
+    const h = (window.location.hash || '').toLowerCase();
+    if (!h) return;
+    if (h === '#chat' || h.startsWith('#chat?')) {
+      const panel = document.getElementById('eiaaw-chat-panel');
+      if (!panel || !panel.classList.contains('open')) toggleChat();
+    } else if (h === '#contact') {
+      openContact();
+    } else if (h === '#agent') {
+      startAgentCall();
+    }
+  }
+  window.addEventListener('hashchange', maybeOpenFromHash);
 })();
