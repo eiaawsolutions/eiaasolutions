@@ -38,6 +38,16 @@
     </image:image>
   </url>
   <url>
+    <loc>https://eiaawsolutions.com/full-stack-engineer.html</loc>
+    <lastmod>2026-05-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <image:image>
+      <image:loc>https://eiaawsolutions.com/media/ep-product.jpg</image:loc>
+      <image:title>EIAAW Hiring Pro &mdash; AI recruiter inside Workforce HR</image:title>
+    </image:image>
+  </url>
+  <url>
     <loc>https://eiaawsolutions.com/llms.txt</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
