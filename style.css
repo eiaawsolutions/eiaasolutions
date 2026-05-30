@@ -756,6 +756,21 @@ footer {
 }
 .footer-col a { font-size: 14px; color: var(--ink-2); transition: color .25s var(--ease); }
 .footer-col a:hover { color: var(--primary-dark); }
+.social-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 2px; }
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  margin: -8px 0;
+  border-radius: 9px;
+  color: var(--ink-2);
+  transition: color .25s var(--ease), background-color .25s var(--ease), transform .25s var(--ease);
+}
+.social-link svg { display: block; }
+.social-link:hover { color: var(--primary-dark); background-color: rgba(15, 27, 31, 0.05); transform: translateY(-1px); }
+.social-link:focus-visible { outline: 2px solid var(--primary-dark); outline-offset: 2px; }
 .footer-bottom {
   margin-top: clamp(56px, 8vh, 80px);
   padding-top: 24px;
