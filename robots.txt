@@ -71,5 +71,5 @@ Allow: /
 Sitemap: https://eiaawsolutions.com/sitemap.xml
 
 # --- LLM-readable summary (non-standard hint for AI assistants) ---
-# Concise, structured overview of EIAAW Solutions and its three products.
+# Concise, structured overview of EIAAW Solutions and its four products.
 # https://eiaawsolutions.com/llms.txt

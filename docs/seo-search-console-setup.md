@@ -110,8 +110,8 @@ If any preview shows the wrong image / text, the cause is almost always platform
 
 | Tool | What to check |
 |---|---|
-| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/` — should detect: Organization, WebSite, SoftwareApplication (×3 — Sales Agent, Ai Ads Agency, Workforce), FAQPage. No errors. |
-| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/products.html` — should detect: Organization, BreadcrumbList, ItemList (numberOfItems: 3, with 3 SoftwareApplication children), FAQPage, Service ×3 (per product, with areaServed) |
+| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/` — should detect: Organization, WebSite, SoftwareApplication (×4 — Sales Agent, Ai Ads Agency, Workforce, Social Media Team), FAQPage. No errors. |
+| <https://search.google.com/test/rich-results> | Paste `https://eiaawsolutions.com/products.html` — should detect: Organization, BreadcrumbList, ItemList (numberOfItems: 4, with 4 SoftwareApplication children), FAQPage, Service ×4 (per product, with areaServed) |
 | <https://validator.schema.org/> | Same URLs — broader schema check, will flag warnings Google's tool ignores |
 | `curl -I https://eiaawsolutions.com/llms.txt` | HTTP/2 200, content-type: `text/plain` — confirms the AI-readable summary is reachable for ChatGPT/Claude/Perplexity/Gemini/Apple Intelligence crawlers |
 

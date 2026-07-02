@@ -35,6 +35,11 @@
       "source": "/index.html",
       "destination": "/",
       "type": 301
+    },
+    {
+      "source": "/full-stack-engineer.html",
+      "destination": "/products.html",
+      "type": 301
     }
   ]
 }
