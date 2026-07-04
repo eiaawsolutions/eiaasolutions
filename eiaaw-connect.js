@@ -279,7 +279,65 @@
     });
   }
 
+  // ---------- Pre-chat lead gate ----------
+  // The AI never answers until we've captured name + email + phone. Details are
+  // sent to the sa CRM as an inbound lead (source chatbot_parent). Asked once
+  // per browsing session.
+  let gatePassed = false;
+  try { gatePassed = sessionStorage.getItem('eiaawChatGate') === '1'; } catch (e) { /* private mode */ }
+
+  function renderGate(pendingText) {
+    const msgs = document.getElementById('eiaaw-chat-msgs');
+    document.getElementById('eiaaw-chat-quick').innerHTML = '';
+    if (document.getElementById('eiaaw-gate')) return;
+    const wrap = document.createElement('div');
+    wrap.id = 'eiaaw-gate';
+    wrap.className = 'eiaaw-chat-bubble bot eiaaw-gate';
+    wrap.innerHTML = `
+      <p style="margin:0 0 8px">Quick intro before we chat &mdash; so our team can follow up if you'd like.</p>
+      <div class="eiaaw-field"><input id="eg-name" type="text" placeholder="Your name" maxlength="120" autocomplete="name"></div>
+      <div class="eiaaw-field"><input id="eg-email" type="email" placeholder="Email" maxlength="160" autocomplete="email"></div>
+      <div class="eiaaw-field"><input id="eg-phone" type="tel" placeholder="Phone" maxlength="40" autocomplete="tel"></div>
+      <div class="eiaaw-field"><input id="eg-company" type="text" placeholder="Company (optional)" maxlength="160" autocomplete="organization"></div>
+      <div class="eiaaw-modal-err" id="eg-error" hidden></div>
+      <button type="button" class="btn btn-primary" id="eg-submit" style="width:100%">Start chatting <span class="arrow">&rarr;</span></button>`;
+    msgs.appendChild(wrap);
+    msgs.scrollTop = msgs.scrollHeight;
+    wrap.querySelector('#eg-submit').addEventListener('click', () => submitGate(pendingText));
+    wrap.querySelectorAll('input').forEach(inp => inp.addEventListener('keydown', ev => {
+      if (ev.key === 'Enter') { ev.preventDefault(); submitGate(pendingText); }
+    }));
+    wrap.querySelector('#eg-name').focus();
+  }
+
+  async function submitGate(pendingText) {
+    const name = document.getElementById('eg-name').value.trim();
+    const email = document.getElementById('eg-email').value.trim();
+    const phone = document.getElementById('eg-phone').value.trim();
+    const company = document.getElementById('eg-company').value.trim();
+    const err = document.getElementById('eg-error');
+    const showErr = (m) => { err.textContent = m; err.hidden = false; };
+    if (!name || !email || !phone) return showErr('Please add your name, email, and phone to continue.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('Please enter a valid email address.');
+    if (String(phone).replace(/\D/g, '').length < 7) return showErr('Please enter a valid phone number.');
+    const btn = document.getElementById('eg-submit');
+    btn.disabled = true; btn.textContent = 'Saving…';
+    try {
+      await fetch(`${API}/api/forms/public/lead-intake`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, phone, company, site: 'parent', page: location.pathname }),
+      });
+    } catch (e) { /* soft-fail: never trap the visitor behind a network error */ }
+    gatePassed = true;
+    try { sessionStorage.setItem('eiaawChatGate', '1'); } catch (e) { /* private mode */ }
+    document.getElementById('eiaaw-gate')?.remove();
+    if (pendingText) handleUserMessage(pendingText);
+  }
+
   async function handleUserMessage(text) {
+    // Hard gate: capture visitor details before the AI answers anything.
+    if (!gatePassed) { renderGate(text); return; }
     addUserMessage(text);
     addTyping();
     try {
