@@ -5,6 +5,7 @@
    ============================================================ */
 (function () {
   const API = 'https://sa.eiaawsolutions.com';
+  const SUBMIT_LABEL = 'Send enquiry <span class="arrow">&rarr;</span>';
 
   // ---------- Modal: Talk to us ----------
   function ensureContactModal() {
@@ -76,11 +77,25 @@
     wrap.querySelector('#ec-agent-cta').addEventListener('click', () => { closeContact(); startAgentCall(); });
   }
 
+  // A successful send leaves the button disabled and reading "Sending…" — it is
+  // never reset, because the whole form is hidden at that point. Re-opening the
+  // modal un-hides that stale, disabled button, so a second enquiry can never be
+  // sent. Reset the submit chrome on every open.
+  function resetSubmit(modal) {
+    const btn = modal.querySelector('#ec-submit');
+    btn.disabled = false;
+    btn.innerHTML = SUBMIT_LABEL;
+    const err = modal.querySelector('#ec-error');
+    err.hidden = true;
+    err.textContent = '';
+  }
+
   function openContact(prefill) {
     ensureContactModal();
     const modal = document.getElementById('eiaaw-contact-modal');
     modal.querySelector('[data-view="form"]').hidden = false;
     modal.querySelector('[data-view="success"]').hidden = true;
+    resetSubmit(modal);
     if (prefill) {
       const set = (id, v) => { if (v != null) { const el = modal.querySelector(id); if (el) el.value = v; } };
       set('#ec-name', prefill.name);
@@ -139,16 +154,19 @@
         errEl.textContent = data.error;
         errEl.hidden = false;
         btn.disabled = false;
-        btn.innerHTML = 'Send enquiry <span class="arrow">&rarr;</span>';
+        btn.innerHTML = SUBMIT_LABEL;
         return;
       }
       modal.querySelector('[data-view="form"]').hidden = true;
       modal.querySelector('[data-view="success"]').hidden = false;
+      // Sent — drop the message so a re-opened form never re-submits stale text.
+      // Name/email/company stay, so a follow-up enquiry is quick to write.
+      modal.querySelector('#ec-message').value = '';
     } catch (e) {
       errEl.textContent = 'Connection issue. You can also email eiaawsolutions@gmail.com directly.';
       errEl.hidden = false;
       btn.disabled = false;
-      btn.innerHTML = 'Send enquiry <span class="arrow">&rarr;</span>';
+      btn.innerHTML = SUBMIT_LABEL;
     }
   }
 
