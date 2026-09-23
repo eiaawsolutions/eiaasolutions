@@ -58,11 +58,25 @@
     else if (window.fbq) window.fbq('consent', 'revoke');
   }
 
+  // The choice is also kept in a cookie on .eiaawsolutions.com so product
+  // sites (e.g. smt.eiaawsolutions.com, which uses the same GA4 property)
+  // honour it without asking again, and vice versa.
+  var COOKIE = 'eiaaw_consent';
+  var SHARED = /(^|\.)eiaawsolutions\.com$/.test(location.hostname);
+
+  function valid(c) { return c && c.v === VERSION ? c : null; }
+
   function read() {
-    try {
-      var c = JSON.parse(localStorage.getItem(KEY) || 'null');
-      return c && c.v === VERSION ? c : null;
-    } catch (e) { return null; }
+    var m = document.cookie.match(new RegExp('(?:^|; )' + COOKIE + '=([^;]*)'));
+    if (m) {
+      try { var fromCookie = valid(JSON.parse(decodeURIComponent(m[1]))); if (fromCookie) return fromCookie; } catch (e) { /* fall through */ }
+    }
+    try { return valid(JSON.parse(localStorage.getItem(KEY) || 'null')); } catch (e) { return null; }
+  }
+
+  function writeCookie(c) {
+    document.cookie = COOKIE + '=' + encodeURIComponent(JSON.stringify(c)) + '; max-age=15552000; path=/; SameSite=Lax' +
+      (SHARED ? '; domain=.eiaawsolutions.com' : '') + (location.protocol === 'https:' ? '; Secure' : '');
   }
 
   // Public API for the banner (eiaaw-connect.js).
@@ -71,6 +85,7 @@
     set: function (analytics, ads) {
       var c = { v: VERSION, analytics: !!analytics, ads: !!ads, ts: new Date().toISOString() };
       try { localStorage.setItem(KEY, JSON.stringify(c)); } catch (e) { /* private mode: choice lasts this page only */ }
+      writeCookie(c);
       apply(c);
       return c;
     }
