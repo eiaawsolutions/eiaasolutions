@@ -7,6 +7,28 @@
   const API = 'https://sa.eiaawsolutions.com';
   const SUBMIT_LABEL = 'Send enquiry <span class="arrow">&rarr;</span>';
 
+  // Conversion events for GA4 + Meta Pixel. Without these, analytics only sees
+  // page views and can't tell which traffic converts. No personal data is sent —
+  // only which channel the visitor used. consent.js decides whether either tag
+  // is actually loaded; without consent the calls go nowhere.
+  function track(gaEvent, metaEvent, params) {
+    try { if (typeof window.gtag === 'function') window.gtag('event', gaEvent, params || {}); } catch (e) { /* analytics must never break the UI */ }
+    try { if (metaEvent && typeof window.fbq === 'function') window.fbq('track', metaEvent, params || {}); } catch (e) { /* same */ }
+  }
+
+  // Explicit, unticked consent before we collect contact details — required by
+  // the stricter APAC regimes (Indonesia, Vietnam, Korea, China, Thailand) and
+  // good evidence under Malaysia's PDPA. The record rides along in fields the
+  // sa endpoints already store (enquiry email body / CRM lead note).
+  const PRIVACY_VERSION = '2026-09-24';
+  function consentField(id) {
+    return `<label class="eiaaw-consent" for="${id}"><input type="checkbox" id="${id}"><span>I agree that EIAAW may use these details to reply to me, including through service providers outside my country, as described in the <a href="/privacy.html" target="_blank" rel="noopener">privacy notice</a>.</span></label>`;
+  }
+  function consentRecord() {
+    return `Consent: agreed to privacy notice (${PRIVACY_VERSION}) on ${new Date().toISOString()} via ${location.href}`;
+  }
+  const CONSENT_ERR = 'Please tick the box so we can use your details to reply.';
+
   // ---------- Modal: Talk to us ----------
   function ensureContactModal() {
     if (document.getElementById('eiaaw-contact-modal')) return;
@@ -47,6 +69,7 @@
           </div>
 
           <div class="eiaaw-modal-err" id="ec-error" hidden></div>
+          ${consentField('ec-consent')}
 
           <div class="eiaaw-modal-actions">
             <button type="button" class="btn btn-primary btn-lg magnetic" id="ec-submit">Send enquiry <span class="arrow">&rarr;</span></button>
@@ -138,6 +161,11 @@
       errEl.hidden = false;
       return;
     }
+    if (!modal.querySelector('#ec-consent').checked) {
+      errEl.textContent = CONSENT_ERR;
+      errEl.hidden = false;
+      return;
+    }
 
     errEl.hidden = true;
     btn.disabled = true;
@@ -147,7 +175,7 @@
       const res = await fetch(`${API}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, company, message }),
+        body: JSON.stringify({ name, email, phone, company, message: `${message}\n\n— ${consentRecord()}` }),
       });
       const data = await res.json().catch(() => ({}));
       if (data.error) {
@@ -159,6 +187,7 @@
       }
       modal.querySelector('[data-view="form"]').hidden = true;
       modal.querySelector('[data-view="success"]').hidden = false;
+      track('generate_lead', 'Lead', { lead_source: 'contact_form', page: location.pathname });
       // Sent — drop the message so a re-opened form never re-submits stale text.
       // Name/email/company stay, so a follow-up enquiry is quick to write.
       modal.querySelector('#ec-message').value = '';
@@ -172,6 +201,7 @@
 
   // ---------- Talk to the agent ----------
   async function startAgentCall() {
+    track('start_voice_agent', 'Contact', { lead_source: 'voice_agent', page: location.pathname });
     try {
       const res = await fetch(`${API}/api/voice/public-session`, {
         method: 'POST',
@@ -228,8 +258,8 @@
     // Seed greeting + quick replies
     addBotMessage("Hi &mdash; I'm the EIAAW assistant. I can explain our products, share our ethics framework, or help you book a session. What brings you here?");
     renderQuickReplies([
-      { label: 'Tell me about Sales Agent', msg: 'Tell me about the Sales Agent product.' },
-      { label: 'Tell me about the Ai Ads Agency', msg: 'Tell me about the Ai Ads Agency product.' },
+      { label: 'Which product fits my team?', msg: 'Which of your four products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team) fits my team?' },
+      { label: 'What does it cost?', msg: 'What does each EIAAW product cost?' },
       { label: 'Book a session', action: 'book' },
       { label: 'Talk to the agent', action: 'agent' },
     ]);
@@ -318,6 +348,7 @@
       <div class="eiaaw-field"><input id="eg-phone" type="tel" placeholder="Phone" maxlength="40" autocomplete="tel"></div>
       <div class="eiaaw-field"><input id="eg-company" type="text" placeholder="Company (optional)" maxlength="160" autocomplete="organization"></div>
       <div class="eiaaw-modal-err" id="eg-error" hidden></div>
+      ${consentField('eg-consent')}
       <button type="button" class="btn btn-primary" id="eg-submit" style="width:100%">Start chatting <span class="arrow">&rarr;</span></button>`;
     msgs.appendChild(wrap);
     msgs.scrollTop = msgs.scrollHeight;
@@ -338,14 +369,16 @@
     if (!name || !email || !phone) return showErr('Please add your name, email, and phone to continue.');
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return showErr('Please enter a valid email address.');
     if (String(phone).replace(/\D/g, '').length < 7) return showErr('Please enter a valid phone number.');
+    if (!document.getElementById('eg-consent').checked) return showErr(CONSENT_ERR);
     const btn = document.getElementById('eg-submit');
     btn.disabled = true; btn.textContent = 'Saving…';
     try {
       await fetch(`${API}/api/forms/public/lead-intake`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, company, site: 'parent', page: location.pathname }),
+        body: JSON.stringify({ name, email, phone, company, site: 'parent', page: location.pathname, message: consentRecord() }),
       });
+      track('generate_lead', 'Lead', { lead_source: 'chat_gate', page: location.pathname });
     } catch (e) { /* soft-fail: never trap the visitor behind a network error */ }
     gatePassed = true;
     try { sessionStorage.setItem('eiaawChatGate', '1'); } catch (e) { /* private mode */ }
@@ -396,8 +429,51 @@
     return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   }
 
+  // ---------- Cookie choices (drives consent.js) ----------
+  // Accept and Reject get equal visual weight — no nudging toward "yes".
+  function showConsentBanner() {
+    if (!window.EIAAWConsent) return; // page without the consent gate
+    let bar = document.getElementById('eiaaw-cookie');
+    if (!bar) {
+      bar = document.createElement('div');
+      bar.id = 'eiaaw-cookie';
+      bar.className = 'eiaaw-cookie';
+      bar.setAttribute('role', 'region');
+      bar.setAttribute('aria-label', 'Cookie choices');
+      bar.innerHTML = `
+        <p><strong>Your choice.</strong> With your permission we use cookies to see which pages help visitors (Google Analytics) and to measure our ads (Meta). Nothing loads unless you say yes. <a href="/privacy.html#cookies">Details</a></p>
+        <div class="eiaaw-cookie-actions">
+          <button type="button" class="btn btn-primary" data-consent="all">Accept all</button>
+          <button type="button" class="btn btn-outline" data-consent="analytics">Analytics only</button>
+          <button type="button" class="btn btn-outline" data-consent="none">Reject all</button>
+        </div>`;
+      bar.addEventListener('click', (e) => {
+        const choice = e.target.closest('[data-consent]')?.dataset.consent;
+        if (!choice) return;
+        window.EIAAWConsent.set(choice !== 'none', choice === 'all');
+        bar.hidden = true;
+      });
+      document.body.appendChild(bar);
+    }
+    bar.hidden = false;
+  }
+
   // ---------- Public API ----------
-  window.EIAAW = { openContact, closeContact, startAgentCall, toggleChat };
+  window.EIAAW = { openContact, closeContact, startAgentCall, toggleChat, showConsentBanner };
+
+  // Click-throughs to the product sites (sa., ads., ep., smt.) are the main way
+  // visitors act on this site, but GA's automatic outbound-click tracking can
+  // treat sibling subdomains as internal and skip them — so record them here.
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href]');
+    if (!a || a.hostname === location.hostname || !/\.eiaawsolutions\.com$/.test(a.hostname)) return;
+    track('select_content', null, {
+      content_type: 'product_site',
+      content_id: a.hostname.split('.')[0],
+      link_url: a.href,
+      page: location.pathname,
+    });
+  });
 
   // Hook explicit CTAs
   document.addEventListener('click', (e) => {
@@ -407,6 +483,7 @@
     if (act === 'contact') { e.preventDefault(); openContact(); }
     else if (act === 'agent') { e.preventDefault(); startAgentCall(); }
     else if (act === 'chat') { e.preventDefault(); toggleChat(); }
+    else if (act === 'cookies') { e.preventDefault(); showConsentBanner(); }
   });
 
   // Bind the floating chat toggle
@@ -414,6 +491,7 @@
     document.querySelectorAll('.chat-toggle').forEach(btn => {
       btn.addEventListener('click', (ev) => { ev.preventDefault(); toggleChat(); }, { capture: true });
     });
+    if (window.EIAAWConsent && !window.EIAAWConsent.get()) showConsentBanner();
     maybeOpenFromHash();
   });
 
@@ -430,6 +508,8 @@
       openContact();
     } else if (h === '#agent') {
       startAgentCall();
+    } else if (h === '#cookies') {
+      showConsentBanner();
     }
   }
   window.addEventListener('hashchange', maybeOpenFromHash);

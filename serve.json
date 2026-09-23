@@ -40,6 +40,9 @@
       "source": "/full-stack-engineer.html",
       "destination": "/products.html",
       "type": 301
-    }
+    },
+    { "source": "/products", "destination": "/products.html", "type": 301 },
+    { "source": "/privacy", "destination": "/privacy.html", "type": 301 },
+    { "source": "/favicon.ico", "destination": "/brand/shield.png", "type": 301 }
   ]
 }

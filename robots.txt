@@ -26,6 +26,12 @@ Allow: /
 User-agent: anthropic-ai
 Allow: /
 
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
 # Perplexity
 User-agent: PerplexityBot
 Allow: /
@@ -38,7 +44,14 @@ User-agent: Google-Extended
 Allow: /
 
 # Apple Intelligence / Apple AI training signal
+User-agent: Applebot
+Allow: /
+
 User-agent: Applebot-Extended
+Allow: /
+
+# Amazon (Alexa / Rufus answers)
+User-agent: Amazonbot
 Allow: /
 
 # Meta AI
@@ -71,5 +84,5 @@ Allow: /
 Sitemap: https://eiaawsolutions.com/sitemap.xml
 
 # --- LLM-readable summary (non-standard hint for AI assistants) ---
-# Concise, structured overview of EIAAW Solutions and its four products.
+# Concise, structured overview of EIAAW Solutions, its four products and pricing.
 # https://eiaawsolutions.com/llms.txt
