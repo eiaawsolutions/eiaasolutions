@@ -1,6 +1,6 @@
 # EIAAW Solutions
 
-> EIAAW Solutions is a Kuala Lumpur AI software company. It builds four live products — Sales Agent, Ai Ads Agency, Workforce and Social Media Team — that take on repetitive work in sales, paid advertising, HR and payroll, and social media, with a human approval gate before anything externally visible happens. Serves Malaysia and Asia-Pacific.
+> EIAAW Solutions is an AI engineering and integration firm based in Kuala Lumpur, building production AI systems, agents and SaaS platforms for businesses. It runs four live products — Sales Agent, Ai Ads Agency, Workforce and Social Media Team — that take on repetitive work in sales, paid advertising, HR and payroll, and social media, with a human approval gate before anything externally visible happens. It also designs, builds and integrates custom AI systems and agents. Serves Malaysia and Asia-Pacific.
 
 EIAAW Solutions (legal name EIAAW SOLUTIONS, SSM registration 202603133419, CT0164540-H) is registered in Malaysia. Every engagement starts with an AI Impact Assessment grounded in seven non-negotiable ethics principles: Human Dignity First, Transparency, Fairness, Human Oversight, Privacy & Data, Continuous Learning, and True Partnership.
 
@@ -17,6 +17,15 @@ EIAAW Solutions (legal name EIAAW SOLUTIONS, SSM registration 202603133419, CT01
 - [Ai Ads Agency (ads.eiaawsolutions.com)](https://ads.eiaawsolutions.com): A multi-agent paid-advertising studio. Brand DNA extraction from any website, multi-platform campaign planning, on-brand AI ad creatives sized per placement, and 250+ audit checks across Google, Meta, TikTok, LinkedIn, Microsoft, Apple and YouTube. Budget, ROAS / CPA modelling and A/B-test design built in. Pricing: Starter USD 499/month (up to USD 20k monthly ad spend, 3 platforms), Growth USD 1,499/month (up to USD 100k monthly ad spend, all 7 platforms), Enterprise custom.
 - [Workforce (ep.eiaawsolutions.com)](https://ep.eiaawsolutions.com): Runs three departments — HR, IT, and Accounting — on one AI-native, multi-tenant platform. The full employee journey, IT asset workflow with auto-AARF, full HRM (leave, payroll, EA forms, attendance, EPF / SOCSO / EIS / PCB statutory submissions for LHDN, KWSP, PERKESO, HRDC) and a full accounting ledger (Chart of Accounts, GL, AR/AP, invoices, POs, banking, fixed assets, budgeting, tax returns) on one tenant with zero CSV exports. Postgres Row-Level Security per tenant. HR AI assistant grounded on tenant data with row-level citations. Pricing per active employee per month: Starter USD 6, Growth USD 14, Scale USD 29; Enterprise custom. 14-day trial, no credit card.
 - [Social Media Team (smt.eiaawsolutions.com)](https://smt.eiaawsolutions.com): An autonomous AI social media platform with receipts. Six specialised agents — Strategist, Researcher, Writer, Designer, Video, and Compliance — plan a monthly calendar, research each post, draft brand-grounded captions, and produce posters, infographics and short videos in the brand's colours; approved posts publish on schedule, and inbox replies are drafted for human approval. A hard compliance gate runs eight checks per post (platform publishability, learned rules, banned phrases, embargo, prior-post deduplication, brand voice, factual grounding, legal compliance); a post that fails any check is held with the reason shown. Every post ships with receipts: source brand evidence, modelled-on prior post, brand-voice score, compliance result, model and cost. Flat per-brand pricing, no per-user tax: Solo RM 688/month (1 brand, 25 branded image + 4 short-video posts), Studio RM 1,688/month (3 brands, 75 branded image + 12 short-video posts), Agency RM 6,888/month (10 brands, 300 branded image + 48 short-video posts, per-client guardrail isolation). Annual billing saves two months. Enterprise is bespoke. Billed on checkout; no free trial.
+
+## Custom AI systems and integrations
+
+Beyond its own products, EIAAW designs, builds and integrates production AI systems and agents for businesses, connected to the tools and data they already use. Every build is held to the same seven ethics principles as the products, including human oversight. Custom work is scoped with the client and quoted per project; start with "Talk to us" on the homepage.
+
+## Getting started
+
+- One of the four products: sign up on that product's own site.
+- A custom AI system, agent or integration: "Talk to us" on the homepage. Reply within one working day.
 
 ## Company
 
