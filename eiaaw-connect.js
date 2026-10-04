@@ -209,8 +209,12 @@
         body: JSON.stringify({ source: 'eiaawsolutions.com' }),
       });
       const data = await res.json().catch(() => ({}));
-      if (data.callUrl) {
-        window.open(data.callUrl, '_blank', 'noopener');
+      // Only ever open an https link — a javascript:/data: URL from a bad
+      // response must not run with this page as its opener origin.
+      let callUrl = null;
+      try { callUrl = data.callUrl && new URL(data.callUrl).protocol === 'https:' ? data.callUrl : null; } catch (e) { /* malformed URL */ }
+      if (callUrl) {
+        window.open(callUrl, '_blank', 'noopener');
       } else {
         // Fallback: open the contact form
         openContact({ message: 'I tried to reach the AI agent but it was unavailable. Please help me book a demo.' });
@@ -402,7 +406,7 @@
       if (data.error) {
         addBotMessage(`${escapeHtml(data.error)}<br>You can also email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.`);
       } else {
-        addBotMessage(escapeHtml(data.response || "I'm having trouble right now &mdash; please try the contact form."));
+        addBotMessage(data.response ? escapeHtml(data.response) : "I'm having trouble right now &mdash; please try the contact form.");
       }
       // After every real reply offer next-step actions
       renderQuickReplies([
