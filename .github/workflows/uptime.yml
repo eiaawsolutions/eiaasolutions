@@ -5,6 +5,9 @@ on:
     - cron: "*/15 * * * *"
   workflow_dispatch:
 
+# The probes only curl public URLs; the job token needs no scopes.
+permissions: {}
+
 jobs:
   probe:
     runs-on: ubuntu-latest

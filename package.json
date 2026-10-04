@@ -7,9 +7,9 @@
     "start": "serve --no-clipboard --no-port-switching ."
   },
   "dependencies": {
-    "serve": "14.2.4"
+    "serve": "14.2.6"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   }
 }
