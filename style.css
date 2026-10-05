@@ -351,6 +351,54 @@ img { max-width: 100%; display: block; }
   .hero-meta-row .meta-ctas { grid-column: 1 / -1; justify-content: flex-start; }
 }
 
+/* Hero product lineup: hairline rows, product name left, domain right */
+.hero-lineup-label {
+  margin: clamp(24px, 3vh, 32px) 0 0;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+.hero-lineup { list-style: none; padding: 0; margin: 12px 0 0; max-width: 36rem; border-top: 1px solid var(--line); }
+.hero-lineup li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 2px 20px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.hero-lineup a {
+  padding: 4px 0;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--primary-dark);
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s var(--ease), border-color 0.3s var(--ease);
+}
+.hero-lineup a::after { content: '\2197'; content: '\2197' / ''; margin-left: 6px; }
+.hero-lineup a:hover { color: var(--ink); border-bottom-color: var(--primary); }
+.hero-lineup a:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; border-radius: 2px; }
+@media (max-width: 480px) { .hero-lineup li { flex-direction: column; align-items: flex-start; } }
+
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ---------- Figure / imagery (floating-elegant) ---------- */
 .figure-elegant {
   position: relative;
