@@ -1353,8 +1353,11 @@ footer {
   object-fit: cover; background: var(--bg);
 }
 .hero-video .hv-film[hidden] { display: none; }
-.hv-sound {
+.hv-controls {
   position: absolute; left: clamp(14px, 2vw, 24px); bottom: clamp(14px, 2vw, 24px); z-index: 3;
+  display: flex; align-items: center; gap: 10px;
+}
+.hv-sound {
   display: inline-flex; align-items: center; gap: 10px;
   padding: 12px 20px 12px 16px; border: 0; border-radius: 999px; cursor: pointer;
   background: var(--ink); color: #FFFFFF;
@@ -1368,6 +1371,20 @@ footer {
 .hv-ico-off { display: none; }
 .hero-video[data-mode="sound"][data-muted="true"] .hv-ico-on { display: none; }
 .hero-video[data-mode="sound"][data-muted="true"] .hv-ico-off { display: block; }
+/* Pause / Play: quieter than the sound pill so "Play with sound" stays the primary action */
+.hv-pause {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; padding: 0; border: 1px solid var(--line); border-radius: 999px; cursor: pointer;
+  background: var(--surface); color: var(--ink);
+  box-shadow: 0 8px 24px rgba(15,26,29,0.16);
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease);
+}
+.hv-pause:hover { background: var(--bg-warm); transform: translateY(-1px); }
+.hv-pause:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+.hv-pause .hv-ico { width: 18px; height: 18px; }
+.hv-ico-play { display: none; }
+.hero-video[data-paused="true"] .hv-ico-pause { display: none; }
+.hero-video[data-paused="true"] .hv-ico-play { display: block; }
 .hv-progress {
   position: absolute; left: 0; right: 0; bottom: 0; z-index: 3; height: 4px;
   background: rgba(15,26,29,0.08); opacity: 0; transition: opacity 0.3s var(--ease);

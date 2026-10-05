@@ -57,7 +57,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=20261005a">
+  <link rel="stylesheet" href="style.css?v=20261005b">
   <link rel="preload" as="image" href="media/hero/eiaaw-poster-16x9.jpg" media="(min-width: 721px)" fetchpriority="high">
   <link rel="preload" as="image" href="media/hero/eiaaw-poster-4x5.jpg" media="(max-width: 720px)" fetchpriority="high">
 
@@ -421,7 +421,7 @@
       </div>
     </div>
 
-    <!-- Hero film: silent loop on load; "Play with sound" switches to the narrated 52s film (see hero-video.js) -->
+    <!-- Hero film: silent loop autoplays on load; "Play with sound" switches to the narrated 52s film; pause/play controls whichever is showing (see hero-video.js) -->
     <figure class="figure-elegant hero-figure hero-video rvl" data-hero-video
       data-loop-desktop="media/hero/eiaaw-hero-loop-16x9.mp4"
       data-film-desktop="media/hero/eiaaw-hero-film-narrated-16x9.mp4"
@@ -431,11 +431,17 @@
       data-poster-mobile="media/hero/eiaaw-poster-4x5.jpg">
       <video class="hv-loop" playsinline muted loop preload="auto" poster="media/hero/eiaaw-poster-16x9.jpg" aria-hidden="true"></video>
       <video class="hv-film" playsinline preload="none" hidden aria-label="EIAAW Solutions film: AI Sales Agent, AI Social Media Team, AI Ads Agency and Workforce, narrated"></video>
-      <button class="hv-sound" type="button" aria-pressed="false">
-        <svg class="hv-ico hv-ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <svg class="hv-ico hv-ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-        <span class="hv-label">Play with sound</span>
-      </button>
+      <div class="hv-controls">
+        <button class="hv-sound" type="button" aria-pressed="false">
+          <svg class="hv-ico hv-ico-on" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16 8.5a5 5 0 0 1 0 7M18.5 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <svg class="hv-ico hv-ico-off" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <span class="hv-label">Play with sound</span>
+        </button>
+        <button class="hv-pause" type="button" aria-label="Pause video">
+          <svg class="hv-ico hv-ico-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>
+          <svg class="hv-ico hv-ico-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l11-6.5z"/></svg>
+        </button>
+      </div>
       <div class="hv-progress" aria-hidden="true"><span></span></div>
       <noscript><img src="media/hero/eiaaw-poster-16x9.jpg" alt="EIAAW Solutions: production AI for Southeast Asian businesses" width="1920" height="1080"></noscript>
     </figure>
@@ -901,7 +907,7 @@
   // Chat toggle is wired by eiaaw-connect.js
 })();
 </script>
-<script src="hero-video.js?v=20261004a" defer></script>
+<script src="hero-video.js?v=20261005a" defer></script>
 <script src="eiaaw-connect.js?v=20261004a" defer></script>
 
 </body>
