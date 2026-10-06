@@ -1448,3 +1448,4 @@ footer {
 @media (max-width: 520px) {
   .cos-teaser { right: 88px; bottom: 36px; }
 }
+.eiaaw-chat-head .cos-id small { letter-spacing: 0.06em; font-size: 9.5px; white-space: nowrap; }

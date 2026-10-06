@@ -249,7 +249,7 @@
     };
     if (window.CoSAvatar) { mountIt(); return; }
     const s = document.createElement('script');
-    s.src = 'cos-avatar.js?v=20261006a';
+    s.src = 'cos-avatar.js?v=20261006b';
     s.async = true;
     s.onload = mountIt;
     s.onerror = () => { cosLoading = false; };
@@ -267,14 +267,14 @@
     panel.innerHTML = `
       <div class="eiaaw-chat-head">
         <span class="cos-face" id="cos-face">
-          <img src="brand/cos.png?v=20261006a" alt="" width="56" height="56" decoding="async">
+          <img src="brand/cos.png?v=20261006b" alt="" width="56" height="56" decoding="async">
           <canvas id="cos-canvas" aria-hidden="true"></canvas>
         </span>
         <div class="cos-id">
-          <strong>CoS</strong>
-          <small>AI &middot; Always honest</small>
+          <strong>EIAAW assistant</strong>
+          <small>Ethical AI &middot; Always honest</small>
         </div>
-        <button type="button" class="cos-voice" id="cos-voice" aria-pressed="false" aria-label="Read CoS replies aloud" title="Read replies aloud" hidden>&#128266;</button>
+        <button type="button" class="cos-voice" id="cos-voice" aria-pressed="false" aria-label="Read replies aloud" title="Read replies aloud" hidden>&#128266;</button>
         <button class="eiaaw-chat-close" aria-label="Close chat">&times;</button>
       </div>
       <div class="eiaaw-chat-msgs" id="eiaaw-chat-msgs" role="log" aria-live="polite"></div>
@@ -313,7 +313,7 @@
     }
 
     // Seed greeting + quick replies
-    addBotMessage("Hi, I'm CoS, EIAAW's AI assistant. I can explain our products, share our ethics framework, or help you book a session. What brings you here?");
+    addBotMessage("Hi &mdash; I'm the EIAAW assistant. I can explain our products, share our ethics framework, or help you book a session. What brings you here?");
     renderQuickReplies([
       { label: 'Which product fits my team?', msg: 'Which of your four products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team) fits my team?' },
       { label: 'What does it cost?', msg: 'What does each EIAAW product cost?' },
@@ -506,7 +506,7 @@
       if (document.getElementById('eiaaw-chat-panel')?.classList.contains('open')) return;
       const t = document.createElement('div');
       t.id = 'cos-teaser'; t.className = 'cos-teaser'; t.setAttribute('role', 'status');
-      t.innerHTML = '<span>Hi, I\u2019m CoS. Need a hand?</span><button type="button" aria-label="Dismiss">&times;</button>';
+      t.innerHTML = '<span>Hi! Need a hand?</span><button type="button" aria-label="Dismiss">&times;</button>';
       t.querySelector('button').addEventListener('click', dismissTeaser);
       t.querySelector('span').addEventListener('click', toggleChat);
       document.body.appendChild(t);
