@@ -239,7 +239,7 @@ shoulderRim.scale.set(1.95,0.95,1); shoulderRim.rotation.x=Math.PI/2; shoulderRi
 [-1,1].forEach(s=>{
   const sh=new THREE.Shape(); sh.moveTo(0,0.0); sh.lineTo(s*0.62,0.28); sh.lineTo(s*0.34,-0.55); sh.lineTo(0,-0.78); sh.closePath();
   const g=new THREE.ExtrudeGeometry(sh,{depth:0.04,bevelEnabled:false});
-  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0xC9BC9C,roughness:0.85,flatShading:true,side:THREE.DoubleSide}));
+  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x9E9B8C,roughness:0.9,flatShading:true,side:THREE.DoubleSide}));
   m.scale.set(0.82,0.82,1); m.position.set(0,0.02,0.86); m.rotation.x=-0.28; torso.add(m);
 });
 // pin: EIAAW shield
