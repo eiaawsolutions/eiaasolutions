@@ -18,9 +18,9 @@
   body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
     display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:100vh}
   .stage{position:relative;min-height:100vh;overflow:hidden;
-    background:radial-gradient(ellipse 60% 55% at 50% 46%,#fff 0%,var(--bg-warm) 55%,#E9E0CC 100%)}
+    background:radial-gradient(ellipse 65% 60% at 50% 46%,#fff 0%,#EEF8F5 45%,var(--bg-warm) 100%)}
   #c{position:absolute;inset:0;width:100%;height:100%;display:block;touch-action:none}
-  .tag{position:absolute;left:28px;top:24px;z-index:2}
+  .tag{position:absolute;left:28px;top:22px;z-index:2}
   .tag small{font:500 11px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--primary-dark)}
   .tag h1{font:400 38px/1.05 var(--serif);margin-top:6px}
   .tag h1 i{color:var(--primary-dark)}
@@ -31,6 +31,8 @@
   .status b{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--primary);margin-right:8px;
     animation:pulse 1.6s infinite}
   @keyframes pulse{50%{opacity:.35}}
+  .bubble{position:absolute;left:50%;top:26px;transform:translateX(-50%);z-index:2;background:#fff;border:1px solid var(--line);border-radius:22px;padding:12px 20px;font:500 15px var(--sans);box-shadow:0 8px 24px rgba(17,118,106,.12);max-width:min(88%,380px);text-align:center}
+  .bubble:after{content:'';position:absolute;left:50%;bottom:-8px;width:14px;height:14px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:translateX(-50%) rotate(45deg)}
   .controls{position:absolute;left:0;right:0;bottom:28px;z-index:2;display:flex;gap:8px;justify-content:center;flex-wrap:wrap;padding:0 16px}
   button{font:500 13px var(--sans);color:var(--ink);background:#fff;border:1px solid var(--line);border-radius:99px;
     padding:10px 18px;cursor:pointer;transition:all .2s}
@@ -52,7 +54,8 @@
     .stage{min-height:78vh}
     aside{border-left:0;border-top:1px solid var(--line);max-height:none}
     .tag h1{font-size:30px}
-    .status{top:auto;right:auto;left:16px;bottom:auto;top:96px}
+    .status{display:none}
+    .tag{display:none}
   }
 </style>
 </head>
@@ -60,27 +63,29 @@
 <main class="stage" id="stage">
   <canvas id="c" aria-label="3D avatar of CoS, the EIAAW Chief of Staff AI assistant" role="img"></canvas>
   <div class="tag"><small>EIAAW Solutions · Concept v1</small><h1>CoS<br><i>Chief of Staff</i></h1></div>
+  <div class="bubble" id="bubble" aria-live="polite">Hi, I'm CoS 👋 Your Chief of Staff.</div>
   <div class="status" id="status"><b></b><span id="statusText">Standing by</span></div>
   <div class="controls" id="controls">
     <button data-s="idle" aria-pressed="true">Standing by</button>
     <button data-s="listening" aria-pressed="false">Listening</button>
     <button data-s="thinking" aria-pressed="false">Thinking</button>
     <button data-s="speaking" aria-pressed="false">Speaking</button>
+    <button id="hi">👋 Say hi</button>
     <button class="speak" id="speak">▶ Demo briefing</button>
   </div>
 </main>
 
 <aside>
   <h2>Meet CoS</h2>
-  <p class="lede">The calm operator behind every decision. A faceted crystal-shield head, a waveform voice, and three satellites that do the legwork.</p>
+  <p class="lede">The calm operator behind every decision. A friendly face with a shield at heart, two helping hands, and three little satellites that do the legwork.</p>
 
   <h3>Design rationale</h3>
   <ul>
-    <li><b>Shield head</b> — lifted straight from the EIAAW mark: trust, governance, protection.</li>
-    <li><b>Waveform mouth</b> — CoS is a voice first. The mouth is a live audio meter, not a cartoon smile.</li>
-    <li><b>Three satellites</b> — Brief, Schedule, Decide. The neural nodes from the logo, now working agents that orbit and report back.</li>
-    <li><b>Tailored bust</b> — ink blazer, cream lapels, a teal pin. Executive, not toy-like; no face to uncanny-valley.</li>
-    <li><b>Gold = thinking</b> — the only warm accent. When it appears, CoS is working on your behalf.</li>
+    <li><b>Soft shield head</b> — the EIAAW shield, rounded and glossy: trustworthy without looking cold.</li>
+    <li><b>Cream face, big eyes</b> — warm, expressive, always smiling. Blush cheeks use the brand gold.</li>
+    <li><b>Helping hands</b> — floating mitts that wave hello. CoS is approachable, not a screen.</li>
+    <li><b>Three satellites</b> — Brief, Schedule, Decide: the logo's neural nodes as little helpers.</li>
+    <li><b>Gold antenna</b> — a bouncing gold orb is the CoS signature; it glows when work is under way.</li>
   </ul>
 
   <h3>Palette (from brand tokens)</h3>
@@ -94,14 +99,14 @@
 
   <h3>Behaviour states</h3>
   <ul>
-    <li><b>Standing by</b> — breathing, blinks, gaze follows the cursor.</li>
+    <li><b>Standing by</b> — waves hello, bounces, blinks, gaze follows the cursor.</li>
     <li><b>Listening</b> — leans in, eyes widen, satellites draw close.</li>
-    <li><b>Thinking</b> — eyes narrow and look up, satellites spin gold.</li>
-    <li><b>Speaking</b> — waveform mouth, ring pulses with voice.</li>
+    <li><b>Thinking</b> — eyes look up, satellites turn gold and spin.</li>
+    <li><b>Speaking</b> — mouth opens with the voice, ring pulses.</li>
   </ul>
 
   <h3>Build notes</h3>
-  <p>Procedural Three.js (no external models, ~0 KB assets), flat-shaded for the crystal look. Same rig drives a Lottie/Rive 2D version or a GLB export for Unity, Unreal or WebXR.</p>
+  <p>Procedural Three.js (no external models, ~0 KB assets), smooth-shaded glossy materials. Same rig drives a Lottie/Rive 2D version or a GLB export for Unity, Unreal or WebXR.</p>
 </aside>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -119,179 +124,159 @@ const camera=new THREE.PerspectiveCamera(32,1,0.1,100);
 camera.position.set(0,0.1,11.5);
 
 /* ---------- palette ---------- */
-const C={deep:0x0A4D47,dark:0x11766A,teal:0x1FA896,mint:0x22B8A5,glow:0x7FE6D4,ink:0x0F1A1D,cream:0xF3EDE0,gold:0xE8B04A};
+const C={deep:0x0A4D47,dark:0x11766A,teal:0x1FA896,mint:0x22B8A5,glow:0x7FE6D4,ink:0x0F1A1D,cream:0xFAF7F2,warm:0xF3EDE0,gold:0xE8B04A};
 
-/* ---------- lights ---------- */
-scene.add(new THREE.HemisphereLight(0xdfeee9,0x8a8470,0.5));
-const key=new THREE.DirectionalLight(0xfff0d8,0.75); key.position.set(-3,4,6); scene.add(key);
-const rim=new THREE.DirectionalLight(0x35e0c8,0.7); rim.position.set(4,1,-3); scene.add(rim);
-const fill=new THREE.PointLight(0x7FE6D4,0.6,14); fill.position.set(2.5,-1,4); scene.add(fill);
+/* ---------- lights (bright + soft = welcoming) ---------- */
+scene.add(new THREE.HemisphereLight(0xffffff,0xe6dcc6,0.95));
+const key=new THREE.DirectionalLight(0xfff6e6,0.85); key.position.set(-3,4,6); scene.add(key);
+const rim=new THREE.DirectionalLight(0x6ff0da,0.55); rim.position.set(4,2,-3); scene.add(rim);
 
 /* ---------- helpers ---------- */
-function shieldShape(s,dy){
-  s=s||1; dy=dy||0;
-  const sh=new THREE.Shape();
-  const p=(x,y)=>[x*s,y*s+dy];
-  let a;
-  a=p(-1,1);        sh.moveTo(a[0],a[1]);
-  a=p(-0.5,1.28);   let b=p(0,1.1); sh.quadraticCurveTo(a[0],a[1],b[0],b[1]);
-  a=p(0.5,1.28);    b=p(1,1);       sh.quadraticCurveTo(a[0],a[1],b[0],b[1]);
-  a=p(1,0.1);       sh.lineTo(a[0],a[1]);
-  let c1=p(1,-0.7),c2=p(0.5,-1.2); b=p(0,-1.45); sh.bezierCurveTo(c1[0],c1[1],c2[0],c2[1],b[0],b[1]);
-  c1=p(-0.5,-1.2); c2=p(-1,-0.7); b=p(-1,0.1);   sh.bezierCurveTo(c1[0],c1[1],c2[0],c2[1],b[0],b[1]);
-  sh.closePath();
-  return sh;
-}
-// Per-triangle colouring gives the cut-crystal facet look from the EIAAW shield mark.
-function facet(geo,pal,seed,lightDir){
-  geo=geo.index?geo.toNonIndexed():geo;
-  geo.computeVertexNormals();
-  const pos=geo.attributes.position, col=new Float32Array(pos.count*3);
-  const L=lightDir.clone().normalize(), n=new THREE.Vector3(), a=new THREE.Vector3(), b=new THREE.Vector3(), c=new THREE.Vector3();
-  const colors=pal.map(h=>new THREE.Color(h));
-  let r=seed;
-  const rnd=()=>{r=(r*16807)%2147483647;return r/2147483647;};
-  for(let i=0;i<pos.count;i+=3){
-    a.fromBufferAttribute(pos,i);b.fromBufferAttribute(pos,i+1);c.fromBufferAttribute(pos,i+2);
-    n.subVectors(c,b).cross(a.clone().sub(b)).normalize();
-    let t=0.5+0.5*n.dot(L)+(rnd()-0.5)*0.42;
-    t=Math.min(0.999,Math.max(0,t))*(colors.length-1);
-    const i0=Math.floor(t), k=t-i0, out=colors[i0].clone().lerp(colors[Math.min(i0+1,colors.length-1)],k);
-    for(let j=0;j<3;j++){col[(i+j)*3]=out.r;col[(i+j)*3+1]=out.g;col[(i+j)*3+2]=out.b;}
+// Soft shield: a sphere eased into a rounded shield taper (smooth shading, no sharp edges).
+function softShield(sx,sy,sz,taper,segW,segH){
+  const g=new THREE.SphereGeometry(1,segW||48,segH||36), p=g.attributes.position, v=new THREE.Vector3();
+  for(let i=0;i<p.count;i++){
+    v.fromBufferAttribute(p,i);
+    const t=Math.max(0,-v.y); const k=1-taper*t*t;
+    p.setXYZ(i,v.x*k*sx,v.y*sy,v.z*k*sz);
   }
-  geo.setAttribute('color',new THREE.BufferAttribute(col,3));
-  return geo;
+  g.computeVertexNormals(); return g;
+}
+function gradientColors(geo,top,bottom){
+  const p=geo.attributes.position, c=new Float32Array(p.count*3), a=new THREE.Color(top), b=new THREE.Color(bottom), o=new THREE.Color();
+  let min=1e9,max=-1e9; for(let i=0;i<p.count;i++){min=Math.min(min,p.getY(i));max=Math.max(max,p.getY(i));}
+  for(let i=0;i<p.count;i++){const t=(p.getY(i)-min)/(max-min); o.copy(b).lerp(a,t); c[i*3]=o.r;c[i*3+1]=o.g;c[i*3+2]=o.b;}
+  geo.setAttribute('color',new THREE.BufferAttribute(c,3)); return geo;
 }
 function glowTexture(){
   const s=128,cv=document.createElement('canvas');cv.width=cv.height=s;
   const g=cv.getContext('2d'),gr=g.createRadialGradient(s/2,s/2,0,s/2,s/2,s/2);
-  gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(0.35,'rgba(255,255,255,.35)');gr.addColorStop(1,'rgba(255,255,255,0)');
+  gr.addColorStop(0,'rgba(255,255,255,1)');gr.addColorStop(0.4,'rgba(255,255,255,.3)');gr.addColorStop(1,'rgba(255,255,255,0)');
   g.fillStyle=gr;g.fillRect(0,0,s,s);
   return new THREE.CanvasTexture(cv);
 }
 const GLOW=glowTexture();
-function roundedRect(w,h,r){
-  const s=new THREE.Shape(),x=-w/2,y=-h/2;
-  s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.quadraticCurveTo(x+w,y,x+w,y+r);s.lineTo(x+w,y+h-r);
-  s.quadraticCurveTo(x+w,y+h,x+w-r,y+h);s.lineTo(x+r,y+h);s.quadraticCurveTo(x,y+h,x,y+h-r);
-  s.lineTo(x,y+r);s.quadraticCurveTo(x,y,x+r,y);return s;
-}
+const glossy=(color,extra)=>new THREE.MeshPhysicalMaterial(Object.assign({color,roughness:0.38,metalness:0.05,clearcoat:0.7,clearcoatRoughness:0.25},extra||{}));
+function ell(rx,ry,seg){return new THREE.CircleGeometry(1,seg||32).scale(rx,ry,1);}
 
 /* ---------- rig ---------- */
 const rig=new THREE.Group(); scene.add(rig);
 const headPivot=new THREE.Group(); headPivot.position.y=0.55; rig.add(headPivot);
 
-/* head: faceted crystal shield */
-const HEAD_DEPTH=0.55;
-const headGeo=facet(new THREE.ExtrudeGeometry(shieldShape(0.95),{depth:HEAD_DEPTH,bevelEnabled:true,bevelThickness:0.2,bevelSize:0.14,bevelSegments:2,curveSegments:5}),
-  [C.deep,C.deep,C.dark,C.dark,C.teal,C.mint,C.glow],7,new THREE.Vector3(-0.6,0.8,0.7));
-headGeo.translate(0,0,-HEAD_DEPTH/2);
-const head=new THREE.Mesh(headGeo,new THREE.MeshStandardMaterial({vertexColors:true,flatShading:true,metalness:0.25,roughness:0.32}));
+/* head: glossy teal soft-shield with vertical gradient */
+const HX=1.05,HY=1.12,HZ=0.82;
+const headGeo=gradientColors(softShield(HX,HY,HZ,0.16),C.glow,C.dark);
+const head=new THREE.Mesh(headGeo,glossy(0xffffff,{vertexColors:true}));
 headPivot.add(head);
+// ear discs (headset feel, reads as "assistant")
+[-1,1].forEach(s=>{
+  const e=new THREE.Mesh(new THREE.SphereGeometry(0.2,24,16),glossy(C.teal)); e.scale.set(0.6,1,1); e.position.set(s*(HX+0.02),0.05,0); headPivot.add(e);
+});
+/* face plate: warm cream, slightly proud of the head */
+const faceGeo=softShield(HX*0.82,HY*0.8,HZ*0.8,0.14,48,36);
+const faceMesh=new THREE.Mesh(faceGeo,new THREE.MeshStandardMaterial({color:C.cream,roughness:0.55}));
+faceMesh.position.set(0,-0.02,0.3); headPivot.add(faceMesh);
 
-/* visor: dark glass inset */
-const visorFront=HEAD_DEPTH/2+0.2+0.015;
-const visor=new THREE.Mesh(new THREE.ShapeGeometry(shieldShape(0.74,0.04),14),
-  new THREE.MeshStandardMaterial({color:0x07262A,metalness:0.8,roughness:0.15}));
-visor.position.z=visorFront; headPivot.add(visor);
-const visorEdge=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(shieldShape(0.74,0.04).getPoints(40).map(p=>new THREE.Vector3(p.x,p.y,0))),
-  new THREE.LineBasicMaterial({color:C.glow,transparent:true,opacity:0.55}));
-visorEdge.position.z=visorFront+0.004; headPivot.add(visorEdge);
-
-/* eyes */
-const face=new THREE.Group(); face.position.z=visorFront+0.012; headPivot.add(face);
-const eyeMat=new THREE.MeshBasicMaterial({color:0x9DFFEA});
+/* face features */
+const face=new THREE.Group(); face.position.z=0.3+HZ*0.8+0.015; headPivot.add(face);
 const eyes=[-1,1].map(side=>{
-  const g=new THREE.Group(); g.position.set(side*0.36,0.42,0);
-  const m=new THREE.Mesh(new THREE.ShapeGeometry(roundedRect(0.22,0.4,0.11),8),eyeMat); g.add(m);
-  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color:C.glow,transparent:true,opacity:0.8,blending:THREE.AdditiveBlending,depthWrite:false}));
-  glow.scale.set(0.85,0.95,1); glow.position.z=-0.005; g.add(glow);
-  face.add(g); return {g,glow};
+  const g=new THREE.Group(); g.position.set(side*0.34,0.14,0);
+  g.add(new THREE.Mesh(ell(0.125,0.185),new THREE.MeshBasicMaterial({color:C.ink})));
+  const iris=new THREE.Mesh(ell(0.085,0.12),new THREE.MeshBasicMaterial({color:C.teal})); iris.position.set(0,-0.03,0.002); g.add(iris);
+  const h1=new THREE.Mesh(ell(0.04,0.045,16),new THREE.MeshBasicMaterial({color:0xffffff})); h1.position.set(0.04,0.07,0.004); g.add(h1);
+  const h2=new THREE.Mesh(ell(0.018,0.02,12),new THREE.MeshBasicMaterial({color:0xffffff})); h2.position.set(-0.04,-0.06,0.004); g.add(h2);
+  face.add(g); return {g};
 });
+// brows
+const brows=[-1,1].map(s=>{const b=new THREE.Mesh(new THREE.PlaneGeometry(0.2,0.028),new THREE.MeshBasicMaterial({color:C.dark}));
+  b.position.set(s*0.34,0.43,0); b.rotation.z=s*-0.12; face.add(b); return b;});
+// blush
+[-1,1].forEach(s=>{const c=new THREE.Mesh(ell(0.12,0.075),new THREE.MeshBasicMaterial({color:C.gold,transparent:true,opacity:0.32,depthWrite:false}));
+  c.position.set(s*0.56,-0.16,0); face.add(c);});
+// smile + open mouth (speaking)
+const smileMat=new THREE.MeshBasicMaterial({color:C.deep,transparent:true});
+const smile=new THREE.Mesh(new THREE.TorusGeometry(0.17,0.024,10,32,Math.PI),smileMat);
+smile.rotation.z=Math.PI; smile.position.set(0,-0.14,0); face.add(smile);
+const mouth=new THREE.Mesh(new THREE.CircleGeometry(0.17,32,Math.PI,Math.PI),new THREE.MeshBasicMaterial({color:C.deep}));
+mouth.position.set(0,-0.16,0.001); face.add(mouth);
 
-/* waveform mouth */
-const BARS=9, bars=[];
-const barMat=new THREE.MeshBasicMaterial({color:0x9DFFEA});
-for(let i=0;i<BARS;i++){
-  const m=new THREE.Mesh(new THREE.PlaneGeometry(0.065,1),barMat);
-  m.position.x=(i-(BARS-1)/2)*0.115; face.add(m); bars.push(m);
-}
+/* antenna with a bouncing gold orb: the CoS signature */
+const antenna=new THREE.Group(); antenna.position.y=HY-0.04; headPivot.add(antenna);
+const stalk=new THREE.Mesh(new THREE.CylinderGeometry(0.025,0.035,0.34,12),glossy(C.dark)); stalk.position.y=0.17; antenna.add(stalk);
+const orb=new THREE.Mesh(new THREE.SphereGeometry(0.14,24,16),new THREE.MeshStandardMaterial({color:C.gold,emissive:C.gold,emissiveIntensity:0.45,roughness:0.3}));
+orb.position.y=0.42; antenna.add(orb);
+const orbGlow=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color:C.gold,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false}));
+orbGlow.scale.set(0.8,0.8,1); orb.add(orbGlow);
 
-/* brow accent: thin teal glints above each eye (reads as "composed") */
-[-1,1].forEach(s=>{
-  const b=new THREE.Mesh(new THREE.PlaneGeometry(0.3,0.022),new THREE.MeshBasicMaterial({color:C.glow,transparent:true,opacity:0.6}));
-  b.position.set(s*0.36,0.78,0); b.rotation.z=s*-0.08; face.add(b);
-});
+/* torso: soft teal jacket, cream collar, EIAAW pin */
+const torso=new THREE.Group(); torso.position.y=-1.62; rig.add(torso);
+const suitGeo=new THREE.SphereGeometry(1,40,24,0,Math.PI*2,0,Math.PI*0.6); suitGeo.scale(1.65,1.05,0.9);
+const suit=new THREE.Mesh(suitGeo,glossy(C.dark,{roughness:0.5,clearcoat:0.3})); suit.position.y=-0.32; torso.add(suit);
+const collar=new THREE.Mesh(new THREE.TorusGeometry(0.46,0.1,16,40),new THREE.MeshStandardMaterial({color:C.cream,roughness:0.6}));
+collar.rotation.x=Math.PI/2; collar.scale.set(1,1,1); collar.position.y=0.62; torso.add(collar);
+const bib=new THREE.Mesh(new THREE.CircleGeometry(0.45,32,Math.PI,Math.PI),new THREE.MeshStandardMaterial({color:C.cream,roughness:0.6,side:THREE.DoubleSide}));
+bib.visible=false;
+const pin=new THREE.Mesh(new THREE.SphereGeometry(0.1,20,14),glossy(C.teal,{emissive:C.teal,emissiveIntensity:0.35}));
+pin.scale.set(1,1.15,0.5); pin.position.set(0.62,0.28,0.84); torso.add(pin);
 
-/* crown: small gold-tipped crystal "chief" mark on top of the head (the CoS signature) */
-const crown=new THREE.Mesh(new THREE.OctahedronGeometry(0.17,0),
-  new THREE.MeshStandardMaterial({color:C.gold,emissive:C.gold,emissiveIntensity:0.35,metalness:0.6,roughness:0.25,flatShading:true}));
-crown.scale.set(0.8,1.5,0.8); crown.position.set(0,1.55,0); headPivot.add(crown);
+/* floating mitten hands: friendly, can wave */
+const handMat=glossy(C.cream,{roughness:0.55,clearcoat:0.2});
+const hands=[-1,1].map(s=>{const g=new THREE.Group();
+  const palm=new THREE.Mesh(new THREE.SphereGeometry(0.3,24,18),handMat); palm.scale.set(0.9,1.05,0.8); g.add(palm);
+  const thumb=new THREE.Mesh(new THREE.SphereGeometry(0.12,16,12),handMat); thumb.position.set(-s*0.26,-0.02,0.04); g.add(thumb);
+  const cuff=new THREE.Mesh(new THREE.TorusGeometry(0.2,0.07,12,24),glossy(C.teal)); cuff.rotation.x=Math.PI/2; cuff.position.y=-0.3; g.add(cuff);
+  g.position.set(s*2.15,-1.35,0.5); rig.add(g); return g;});
 
-/* torso: tailored bust, floating (no neck → clean silhouette) */
-const torso=new THREE.Group(); torso.position.y=-1.55; rig.add(torso);
-const suit=new THREE.Mesh(new THREE.SphereGeometry(1,9,7,0,Math.PI*2,0,Math.PI*0.62),
-  new THREE.MeshStandardMaterial({color:0x14262A,metalness:0.2,roughness:0.55,flatShading:true}));
-suit.scale.set(1.95,1.15,0.95); suit.position.y=-0.3; torso.add(suit);
-const shoulderRim=new THREE.Mesh(new THREE.TorusGeometry(1.0,0.012,6,48),new THREE.MeshBasicMaterial({color:C.teal,transparent:true,opacity:0.55}));
-shoulderRim.scale.set(1.95,0.95,1); shoulderRim.rotation.x=Math.PI/2; shoulderRim.position.y=0.28; torso.add(shoulderRim);
-// lapels
-[-1,1].forEach(s=>{
-  const sh=new THREE.Shape(); sh.moveTo(0,0.0); sh.lineTo(s*0.62,0.28); sh.lineTo(s*0.34,-0.55); sh.lineTo(0,-0.78); sh.closePath();
-  const g=new THREE.ExtrudeGeometry(sh,{depth:0.04,bevelEnabled:false});
-  const m=new THREE.Mesh(g,new THREE.MeshStandardMaterial({color:0x9E9B8C,roughness:0.9,flatShading:true,side:THREE.DoubleSide}));
-  m.scale.set(0.82,0.82,1); m.position.set(0,0.02,0.86); m.rotation.x=-0.28; torso.add(m);
-});
-// pin: EIAAW shield
-const pin=new THREE.Mesh(new THREE.ExtrudeGeometry(shieldShape(0.11),{depth:0.03,bevelEnabled:false}),
-  new THREE.MeshStandardMaterial({color:C.teal,emissive:C.teal,emissiveIntensity:0.5,metalness:0.4,roughness:0.3}));
-pin.position.set(0.72,-0.16,0.84); pin.rotation.x=-0.28; torso.add(pin);
-
-/* halo: thin ring + agenda ticks behind the head */
+/* halo ring: soft and light */
 const halo=new THREE.Group(); halo.position.set(0,0.55,-0.9); rig.add(halo);
-halo.add(new THREE.Mesh(new THREE.TorusGeometry(2.25,0.016,8,120),new THREE.MeshBasicMaterial({color:C.teal,transparent:true,opacity:0.55})));
-const tickMat=new THREE.MeshBasicMaterial({color:C.dark});
-for(let i=0;i<24;i++){
-  const t=new THREE.Mesh(new THREE.OctahedronGeometry(i%6===0?0.075:0.04,0),i%6===0?new THREE.MeshBasicMaterial({color:C.gold}):tickMat);
-  const a=i/24*Math.PI*2; t.position.set(Math.cos(a)*2.55,Math.sin(a)*2.55,0); halo.add(t);
+halo.add(new THREE.Mesh(new THREE.TorusGeometry(2.3,0.02,12,120),new THREE.MeshBasicMaterial({color:C.teal,transparent:true,opacity:0.4})));
+for(let i=0;i<18;i++){
+  const big=i%6===0;
+  const t=new THREE.Mesh(new THREE.SphereGeometry(big?0.07:0.04,12,10),new THREE.MeshBasicMaterial({color:big?C.gold:C.teal,transparent:true,opacity:big?1:0.7}));
+  const a=i/18*Math.PI*2; t.position.set(Math.cos(a)*2.6,Math.sin(a)*2.6,0); halo.add(t);
 }
 
-/* satellites: Brief · Schedule · Decide */
-const SAT=[{name:'Brief',geo:new THREE.OctahedronGeometry(0.2,0)},{name:'Schedule',geo:new THREE.BoxGeometry(0.28,0.28,0.28)},{name:'Decide',geo:new THREE.TetrahedronGeometry(0.26,0)}];
+/* satellites: Brief · Schedule · Decide (soft, glowing orbs) */
+const SAT=[{geo:new THREE.SphereGeometry(0.22,24,16)},{geo:new THREE.TorusGeometry(0.2,0.07,14,28)},{geo:new THREE.IcosahedronGeometry(0.25,2)}];
 const sats=SAT.map((d,i)=>{
-  const mat=new THREE.MeshStandardMaterial({color:C.mint,emissive:C.teal,emissiveIntensity:0.55,metalness:0.4,roughness:0.25,flatShading:true});
+  const mat=new THREE.MeshStandardMaterial({color:C.mint,emissive:C.teal,emissiveIntensity:0.45,roughness:0.3});
   const m=new THREE.Mesh(d.geo,mat);
-  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color:C.glow,transparent:true,opacity:0.55,blending:THREE.AdditiveBlending,depthWrite:false}));
-  glow.scale.set(1.1,1.1,1); m.add(glow);
+  const glow=new THREE.Sprite(new THREE.SpriteMaterial({map:GLOW,color:C.glow,transparent:true,opacity:0.5,blending:THREE.AdditiveBlending,depthWrite:false}));
+  glow.scale.set(1.2,1.2,1); m.add(glow);
   const lg=new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(),new THREE.Vector3()]);
-  const line=new THREE.Line(lg,new THREE.LineBasicMaterial({color:C.teal,transparent:true,opacity:0.5}));
+  const line=new THREE.Line(lg,new THREE.LineBasicMaterial({color:C.teal,transparent:true,opacity:0.35}));
   rig.add(m,line); return {m,mat,glow,line,lg};
 });
 
-/* dust */
-const N=140, dp=new Float32Array(N*3);
+/* sparkle dust */
+const N=120, dp=new Float32Array(N*3);
 for(let i=0;i<N;i++){const r=3+Math.random()*3.5,a=Math.random()*6.283,e=(Math.random()-0.5)*4.5;dp[i*3]=Math.cos(a)*r;dp[i*3+1]=e;dp[i*3+2]=Math.sin(a)*r*0.5-1;}
 const dgeo=new THREE.BufferGeometry();dgeo.setAttribute('position',new THREE.BufferAttribute(dp,3));
-const dust=new THREE.Points(dgeo,new THREE.PointsMaterial({color:C.teal,size:0.045,transparent:true,opacity:0.55}));
+const dust=new THREE.Points(dgeo,new THREE.PointsMaterial({color:C.teal,size:0.05,transparent:true,opacity:0.5}));
 scene.add(dust);
+
+/* soft contact shadow */
+const shadow=new THREE.Mesh(new THREE.CircleGeometry(1,40),new THREE.MeshBasicMaterial({map:GLOW,color:0x6b5d3f,transparent:true,opacity:0.22,depthWrite:false}));
+shadow.scale.set(3.4,0.5,1); shadow.rotation.x=-Math.PI/2; shadow.position.set(0,-3.2,0); scene.add(shadow);
 
 /* ---------- state machine ---------- */
 const PRESET={
-  idle:     {eyeY:1,   eyeX:1,    gx:0,   gy:0,   tilt:0,    lean:0,   ring:0.15,nodeR:2.35,nodeS:0.35,speak:0,warm:0,glow:0.8,label:'Standing by'},
-  listening:{eyeY:1.18,eyeX:1.1,  gx:0,   gy:0,   tilt:0.13, lean:0.35,ring:0.5, nodeR:1.95,nodeS:0.6, speak:0,warm:0,glow:1.15,label:'Listening…'},
-  thinking: {eyeY:0.42,eyeX:1.05, gx:0.1, gy:0.16,tilt:-0.1, lean:0,   ring:1.4, nodeR:2.55,nodeS:1.9, speak:0,warm:1,glow:0.9,label:'Working on it…'},
-  speaking: {eyeY:1,   eyeX:1,    gx:0,   gy:0,   tilt:0.03, lean:0.12,ring:0.35,nodeR:2.2, nodeS:0.7, speak:1,warm:0,glow:1.25,label:'Briefing you'}
+  idle:     {eyeY:1,   eyeX:1,   gx:0,   gy:0,   tilt:0,    lean:0,   ring:0.15,nodeR:2.35,nodeS:0.35,speak:0,warm:0,glow:0.8, smile:1,   label:'Standing by',bubble:"Hi, I'm CoS 👋 Your Chief of Staff."},
+  listening:{eyeY:1.15,eyeX:1.1, gx:0,   gy:0,   tilt:0.13, lean:0.35,ring:0.5, nodeR:1.95,nodeS:0.6, speak:0,warm:0,glow:1.15,smile:1.15,label:'Listening…',bubble:"I'm all ears. Go ahead."},
+  thinking: {eyeY:0.85,eyeX:1,   gx:0.1, gy:0.14,tilt:-0.1, lean:0,   ring:1.4, nodeR:2.55,nodeS:1.9, speak:0,warm:1,glow:0.9, smile:0.7, label:'Working on it…',bubble:"Give me a moment. My team is on it."},
+  speaking: {eyeY:1,   eyeX:1,   gx:0,   gy:0,   tilt:0.03, lean:0.12,ring:0.35,nodeR:2.2, nodeS:0.7, speak:1,warm:0,glow:1.25,smile:1,   label:'Briefing you',bubble:"Here's what needs your attention today."}
 };
 let state='idle', cur=Object.assign({},PRESET.idle);
 const buttons=[...document.querySelectorAll('#controls button[data-s]')];
-const statusText=document.getElementById('statusText');
+const statusText=document.getElementById('statusText'), bubble=document.getElementById('bubble');
 function setState(s){
-  state=s; statusText.textContent=PRESET[s].label;
+  state=s; statusText.textContent=PRESET[s].label; bubble.textContent=PRESET[s].bubble;
   buttons.forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.s===s)));
 }
 buttons.forEach(b=>b.addEventListener('click',()=>{stopSpeech();setState(b.dataset.s);}));
 
 /* demo briefing via Web Speech (drives the speaking state) */
+document.getElementById('hi').addEventListener('click',()=>window.__cos.wave());
 const speakBtn=document.getElementById('speak');
 function stopSpeech(){try{speechSynthesis.cancel();}catch(e){}}
 speakBtn.addEventListener('click',()=>{
@@ -324,42 +309,54 @@ new ResizeObserver(resize).observe(stage); resize();
 
 /* ---------- loop ---------- */
 const clock=new THREE.Clock(), warmCol=new THREE.Color(C.gold), coolCol=new THREE.Color(C.mint), tmp=new THREE.Color();
-let nextBlink=2, blink=0, spin=0, orbit=0;
+let nextBlink=2, blink=0, spin=0, orbit=0, waveT=-1;
 const lerp=(a,b,t)=>a+(b-a)*t;
+function wave(){waveT=0;}
+window.addEventListener('load',()=>setTimeout(wave,700));
 function frame(){
   const dt=Math.min(clock.getDelta(),0.05), t=clock.elapsedTime, P=PRESET[state];
   const k=1-Math.exp(-dt*5), mo=reduceMotion?0.35:1;
   for(const key in P){ if(typeof P[key]==='number') cur[key]=lerp(cur[key],P[key],k); }
   ptr.x=lerp(ptr.x,ptr.tx,1-Math.exp(-dt*4)); ptr.y=lerp(ptr.y,ptr.ty,1-Math.exp(-dt*4));
 
-  // body: breathing + gaze-follow
-  rig.position.y=Math.sin(t*1.3)*0.06*mo;
-  headPivot.rotation.y=ptr.x*0.38; headPivot.rotation.x=-ptr.y*0.2+cur.lean*0.1;
-  headPivot.rotation.z=cur.tilt+Math.sin(t*0.7)*0.015*mo;
+  // body: gentle bounce + gaze-follow
+  rig.position.y=Math.sin(t*1.5)*0.07*mo;
+  headPivot.rotation.y=ptr.x*0.4; headPivot.rotation.x=-ptr.y*0.22+cur.lean*0.1;
+  headPivot.rotation.z=cur.tilt+Math.sin(t*0.8)*0.025*mo;
   headPivot.position.z=cur.lean*0.35;
   torso.rotation.y=ptr.x*0.12;
-  crown.rotation.y=t*0.8*mo; crown.position.y=1.55+Math.sin(t*2)*0.03*mo;
+  antenna.rotation.z=Math.sin(t*2.2)*0.18*mo; orb.position.y=0.42+Math.abs(Math.sin(t*3))*0.04*mo;
+  orbGlow.material.opacity=0.35+0.2*Math.sin(t*3)*mo;
 
   // blink
   if(t>nextBlink){blink=1;nextBlink=t+2+Math.random()*3.5;}
   blink=Math.max(0,blink-dt*7);
   const lid=1-Math.sin(blink*Math.PI)*0.95;
   eyes.forEach((e,i)=>{
+    const sd=i?1:-1;
     e.g.scale.set(cur.eyeX,Math.max(0.05,cur.eyeY*lid),1);
-    e.g.position.x=(i?1:-1)*0.36+(cur.gx+ptr.x*0.07)*1;
-    e.g.position.y=0.42+(cur.gy+ptr.y*0.05);
-    e.glow.material.opacity=0.55*cur.glow;
+    e.g.position.x=sd*0.34+(cur.gx+ptr.x*0.06);
+    e.g.position.y=0.14+(cur.gy+ptr.y*0.05);
+    brows[i].position.y=0.43+(cur.eyeY-1)*0.18+(cur.gy*0.3);
   });
 
-  // waveform mouth: smile arc ↔ live voice meter
-  const sp=cur.speak, voice=state==='speaking'?(0.55+0.45*Math.sin(t*3.1))*(0.6+0.4*Math.sin(t*1.7)):0;
-  bars.forEach((b,i)=>{
-    const x=b.position.x, arc=0.04+x*x*0.9;
-    const wave=0.05+voice*0.34*Math.abs(Math.sin(t*13+i*1.7))*(0.55+0.45*Math.sin(t*5+i));
-    const h=lerp(0.035,wave,sp);
-    b.scale.y=Math.max(0.03,h);
-    b.position.y=lerp(-0.24+arc-0.04,-0.28,sp);
+  // mouth: always smiling; opens with the voice when speaking
+  const sp=cur.speak, voice=state==='speaking'?(0.5+0.5*Math.abs(Math.sin(t*9)))*(0.6+0.4*Math.sin(t*3.7)):0;
+  smile.scale.setScalar(cur.smile); smileMat.opacity=1-sp;
+  mouth.scale.set(0.75+0.25*voice,Math.max(0.001,sp*(0.2+voice*0.95)),1);
+
+  // hands: idle bob; right hand waves on greeting
+  hands.forEach((h,i)=>{
+    const sd=i?1:-1;
+    h.position.y=-1.35+Math.sin(t*1.6+i*1.7)*0.06*mo;
+    h.rotation.z=sd*0.15; h.position.x=sd*2.15; h.position.z=0.5;
   });
+  if(waveT>=0){
+    waveT+=dt; const r=hands[1], u=Math.min(waveT/0.5,1), out=waveT<2.6?u:Math.max(0,1-(waveT-2.6)/0.5);
+    r.position.set(2.15-0.15*out,-1.35+1.7*out,0.7*out+0.5);
+    r.rotation.z=0.15+Math.sin(waveT*11)*0.45*out;
+    if(waveT>3.2)waveT=-1;
+  }
 
   // halo
   spin+=dt*cur.ring*mo; halo.rotation.z=spin;
@@ -372,21 +369,21 @@ function frame(){
   const hp=new THREE.Vector3(0,0.55,0);
   sats.forEach((s,i)=>{
     const a=orbit+i*Math.PI*2/3, R=cur.nodeR;
-    s.m.position.set(Math.cos(a)*R, 0.55+Math.sin(a*1.0)*R*0.42+Math.sin(t+i)*0.08*mo, Math.sin(a)*R*0.7);
+    s.m.position.set(Math.cos(a)*R, 0.55+Math.sin(a)*R*0.42+Math.sin(t+i)*0.08*mo, Math.sin(a)*R*0.7);
     s.m.rotation.x+=dt*(0.8+i*0.3)*mo; s.m.rotation.y+=dt*(1.1-i*0.2)*mo;
-    s.mat.color.copy(tmp); s.mat.emissive.copy(tmp).multiplyScalar(0.8); s.mat.emissiveIntensity=0.55+0.25*Math.sin(t*3+i);
-    s.glow.material.color.copy(tmp); s.glow.material.opacity=0.4*cur.glow;
+    s.mat.color.copy(tmp); s.mat.emissive.copy(tmp).multiplyScalar(0.7); s.mat.emissiveIntensity=0.45+0.2*Math.sin(t*3+i);
+    s.glow.material.color.copy(tmp); s.glow.material.opacity=0.38*cur.glow;
     const p=s.lg.attributes.position; p.setXYZ(0,hp.x,hp.y,hp.z); p.setXYZ(1,s.m.position.x,s.m.position.y,s.m.position.z); p.needsUpdate=true;
     s.line.material.color.copy(tmp);
   });
-  visorEdge.material.opacity=0.35+0.25*cur.glow;
   dust.rotation.y=t*0.03*mo;
+  shadow.scale.x=3.4*(1-Math.sin(t*1.5)*0.03);
 
   renderer.render(scene,camera);
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);
-window.__cos={setState};   // lets embedders / tests drive the avatar
+window.__cos={setState,wave};   // lets embedders / tests drive the avatar
 })();
 </script>
 </body>
