@@ -1392,3 +1392,60 @@ footer {
 .hv-progress span { display: block; height: 100%; width: 0; background: var(--primary-dark); }
 .hero-video[data-mode="sound"] .hv-progress { opacity: 1; }
 @media (max-width: 640px) { .hv-sound { padding: 10px 16px 10px 12px; font-size: 14px; } }
+
+
+/* ---------- CoS: launcher, teaser, chat-header avatar ---------- */
+.chat-toggle.cos-launcher {
+  width: 64px; height: 64px; padding: 0;
+  background: radial-gradient(circle at 50% 30%, #fff 0%, var(--primary-tint) 100%);
+  overflow: visible;
+}
+.cos-launcher img {
+  width: 90%; height: 90%; object-fit: contain; pointer-events: none;
+  animation: cos-bob 3.4s ease-in-out infinite;
+}
+@keyframes cos-bob { 0%, 100% { transform: translateY(1px); } 50% { transform: translateY(-3px); } }
+.cos-teaser {
+  position: fixed; right: 104px; bottom: 40px; z-index: 299;
+  display: flex; align-items: center; gap: 8px;
+  max-width: min(260px, calc(100vw - 140px));
+  padding: 10px 8px 10px 16px;
+  background: var(--surface); color: var(--ink);
+  border: 1px solid var(--line); border-radius: 18px 18px 4px 18px;
+  font: 500 14px/1.35 var(--sans);
+  box-shadow: 0 10px 28px -8px rgba(15,26,29,0.22);
+  animation: eiaaw-pop 0.35s var(--ease);
+}
+.cos-teaser[hidden] { display: none; }
+.cos-teaser button {
+  flex: none; width: 24px; height: 24px; border: 0; border-radius: 50%;
+  background: transparent; color: var(--mute); font-size: 16px; line-height: 1; cursor: pointer;
+}
+.cos-teaser button:hover { background: var(--bg-warm); color: var(--ink); }
+.eiaaw-chat-head .cos-id { flex: 1; min-width: 0; }
+.cos-face {
+  position: relative; flex: none; width: 56px; height: 56px;
+  border-radius: 16px; overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #fff 0%, var(--primary-tint) 100%);
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+}
+.cos-face img, .cos-face canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.cos-face img { object-fit: contain; padding: 3px; }
+.cos-face canvas { opacity: 0; transition: opacity 0.4s var(--ease); }
+.cos-face.ready canvas { opacity: 1; }
+.cos-face.ready img { visibility: hidden; }
+.eiaaw-chat-head .cos-voice {
+  flex: none; width: 28px; height: 28px; border-radius: 50%;
+  background: rgba(255,255,255,0.18); border: 0; color: #fff;
+  font-size: 13px; cursor: pointer; transition: background 0.25s var(--ease);
+}
+.eiaaw-chat-head .cos-voice:hover { background: rgba(255,255,255,0.3); }
+.eiaaw-chat-head .cos-voice[aria-pressed="true"] { background: #fff; color: var(--primary-dark); }
+.eiaaw-chat-head .cos-voice[hidden] { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .cos-launcher img { animation: none; }
+}
+@media (max-width: 520px) {
+  .cos-teaser { right: 88px; bottom: 36px; }
+}
+.eiaaw-chat-head .cos-id small { letter-spacing: 0.06em; font-size: 9.5px; white-space: nowrap; }

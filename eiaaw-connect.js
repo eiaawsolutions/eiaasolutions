@@ -224,6 +224,53 @@
     }
   }
 
+  // ---------- CoS avatar ----------
+  // The 3D avatar loads on the first chat open (never on page load), shows the
+  // static poster until ready, and falls back to it if WebGL is unavailable.
+  let cos = null, cosLoading = false, cosVoiceOn = false;
+  try { cosVoiceOn = sessionStorage.getItem('cos-voice') === '1'; } catch (e) { /* default off */ }
+  function cosState(s) { if (cos) cos.setState(s); }
+  // Warm greeting by the visitor's local time (see docs/COS-CODE-OF-CONDUCT.md section 3).
+  function timeGreeting(d) {
+    const h = (d || new Date()).getHours();
+    if (h >= 5 && h < 12) return 'Good morning';
+    if (h >= 12 && h < 18) return 'Good afternoon';
+    return 'Good evening';
+  }
+  // Voice speaks only the newest reply, never links or markdown, and never the same text twice.
+  let lastSpoken = '';
+  function speakable(t) {
+    return String(t).replace(/https?:\/\/\S+/g, 'the link in the chat').replace(/[*_`#>]+/g, '').replace(/\s+/g, ' ').trim();
+  }
+  function cosSay(text) {
+    if (!cos) return;
+    const t = speakable(text);
+    if (!t || t === lastSpoken) { cos.setState('idle'); return; }
+    lastSpoken = t;
+    cos.say(t, { sound: cosVoiceOn }).then(() => { if (cos) cos.setState('idle'); });
+  }
+  function loadCoS() {
+    if (cos || cosLoading) return;
+    cosLoading = true;
+    const mountIt = () => {
+      const canvas = document.getElementById('cos-canvas');
+      if (!canvas || !window.CoSAvatar) { cosLoading = false; return; }
+      window.CoSAvatar.mount(canvas, { frame: 'head', minimal: true }).then((c) => {
+        cos = c;
+        document.getElementById('cos-face')?.classList.add('ready');
+        const open = document.getElementById('eiaaw-chat-panel')?.classList.contains('open');
+        cos.setActive(!!open);
+      }).catch(() => { cosLoading = false; /* poster stays */ });
+    };
+    if (window.CoSAvatar) { mountIt(); return; }
+    const s = document.createElement('script');
+    s.src = 'cos-avatar.js?v=20261007a';
+    s.async = true;
+    s.onload = mountIt;
+    s.onerror = () => { cosLoading = false; };
+    document.head.appendChild(s);
+  }
+
   // ---------- Chatbot ----------
   function ensureChatPanel() {
     if (document.getElementById('eiaaw-chat-panel')) return;
@@ -234,10 +281,15 @@
     panel.setAttribute('aria-hidden', 'true');
     panel.innerHTML = `
       <div class="eiaaw-chat-head">
-        <div>
+        <span class="cos-face" id="cos-face">
+          <img src="brand/cos.png?v=20261007a" alt="" width="56" height="56" decoding="async">
+          <canvas id="cos-canvas" aria-hidden="true"></canvas>
+        </span>
+        <div class="cos-id">
           <strong>EIAAW assistant</strong>
           <small>Ethical AI &middot; Always honest</small>
         </div>
+        <button type="button" class="cos-voice" id="cos-voice" aria-pressed="false" aria-label="Read replies aloud" title="Read replies aloud" hidden>&#128266;</button>
         <button class="eiaaw-chat-close" aria-label="Close chat">&times;</button>
       </div>
       <div class="eiaaw-chat-msgs" id="eiaaw-chat-msgs" role="log" aria-live="polite"></div>
@@ -259,8 +311,24 @@
       handleUserMessage(v);
     });
 
+    // CoS reacts to the conversation: listening while the visitor types.
+    const chatInput = panel.querySelector('#eiaaw-chat-input');
+    chatInput.addEventListener('focus', () => cosState('listening'));
+    chatInput.addEventListener('blur', () => cosState('idle'));
+    const voiceBtn = panel.querySelector('#cos-voice');
+    if ('speechSynthesis' in window) {
+      voiceBtn.hidden = false;
+      voiceBtn.setAttribute('aria-pressed', String(cosVoiceOn));
+      voiceBtn.addEventListener('click', () => {
+        cosVoiceOn = !cosVoiceOn;
+        voiceBtn.setAttribute('aria-pressed', String(cosVoiceOn));
+        try { sessionStorage.setItem('cos-voice', cosVoiceOn ? '1' : '0'); } catch (e) { /* preference only */ }
+        if (!cosVoiceOn && cos) cos.stop();
+      });
+    }
+
     // Seed greeting + quick replies
-    addBotMessage("Hi &mdash; I'm the EIAAW assistant. I can explain our products, share our ethics framework, or help you book a session. What brings you here?");
+    addBotMessage(`${timeGreeting()}! I'm the EIAAW assistant, an AI. How can we assist you today? I can explain our products, share our ethics framework, or help you book a session.`);
     renderQuickReplies([
       { label: 'Which product fits my team?', msg: 'Which of your four products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team) fits my team?' },
       { label: 'What does it cost?', msg: 'What does each EIAAW product cost?' },
@@ -395,6 +463,7 @@
     if (!gatePassed) { renderGate(text); return; }
     addUserMessage(text);
     addTyping();
+    cosState('thinking');
     try {
       const res = await fetch(`${API}/api/chatbot`, {
         method: 'POST',
@@ -404,9 +473,11 @@
       const data = await res.json().catch(() => ({}));
       removeTyping();
       if (data.error) {
+        cosState('idle');
         addBotMessage(`${escapeHtml(data.error)}<br>You can also email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.`);
       } else {
         addBotMessage(data.response ? escapeHtml(data.response) : "I'm having trouble right now &mdash; please try the contact form.");
+        if (data.response) cosSay(data.response); else cosState('idle');
       }
       // After every real reply offer next-step actions
       renderQuickReplies([
@@ -416,6 +487,7 @@
       ]);
     } catch (e) {
       removeTyping();
+      cosState('idle');
       addBotMessage('I can\u2019t reach the server right now. Please use the form below or email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.');
       renderQuickReplies([{ label: 'Open the form', action: 'form' }]);
     }
@@ -426,7 +498,36 @@
     const panel = document.getElementById('eiaaw-chat-panel');
     const open = panel.classList.toggle('open');
     panel.setAttribute('aria-hidden', open ? 'false' : 'true');
-    if (open) setTimeout(() => panel.querySelector('#eiaaw-chat-input')?.focus(), 50);
+    dismissTeaser();
+    if (open) {
+      loadCoS();
+      if (cos) cos.setActive(true);
+      setTimeout(() => panel.querySelector('#eiaaw-chat-input')?.focus(), 50);
+    } else if (cos) {
+      cos.stop(); cos.setState('idle'); cos.setActive(false);
+    }
+  }
+
+  // One-time friendly nudge from CoS, shown once per session after a short delay.
+  function dismissTeaser() {
+    const t = document.getElementById('cos-teaser');
+    if (t) t.hidden = true;
+  }
+  function maybeShowTeaser() {
+    const launcher = document.querySelector('.cos-launcher');
+    if (!launcher) return;
+    try { if (sessionStorage.getItem('cos-teased')) return; } catch (e) { /* show anyway */ }
+    setTimeout(() => {
+      if (document.getElementById('eiaaw-chat-panel')?.classList.contains('open')) return;
+      const t = document.createElement('div');
+      t.id = 'cos-teaser'; t.className = 'cos-teaser'; t.setAttribute('role', 'status');
+      t.innerHTML = '<span>Hi! Need a hand?</span><button type="button" aria-label="Dismiss">&times;</button>';
+      t.querySelector('button').addEventListener('click', dismissTeaser);
+      t.querySelector('span').addEventListener('click', toggleChat);
+      document.body.appendChild(t);
+      try { sessionStorage.setItem('cos-teased', '1'); } catch (e) { /* ignore */ }
+      setTimeout(dismissTeaser, 12000);
+    }, 6000);
   }
 
   function escapeHtml(s) {
@@ -497,6 +598,7 @@
     });
     if (window.EIAAWConsent && !window.EIAAWConsent.get()) showConsentBanner();
     maybeOpenFromHash();
+    maybeShowTeaser();
   });
 
   // Deep-link support: #chat opens the chatbot, #contact opens the enquiry form,
