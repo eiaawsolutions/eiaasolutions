@@ -20,7 +20,7 @@
   // the stricter APAC regimes (Indonesia, Vietnam, Korea, China, Thailand) and
   // good evidence under Malaysia's PDPA. The record rides along in fields the
   // sa endpoints already store (enquiry email body / CRM lead note).
-  const PRIVACY_VERSION = '2026-09-24';
+  const PRIVACY_VERSION = '2026-10-07';
   function consentField(id) {
     return `<label class="eiaaw-consent" for="${id}"><input type="checkbox" id="${id}"><span>I agree that EIAAW may use these details to reply to me, including through service providers outside my country, as described in the <a href="/privacy.html" target="_blank" rel="noopener">privacy notice</a>.</span></label>`;
   }

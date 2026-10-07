@@ -881,7 +881,9 @@ img { max-width: 100%; display: block; }
 .legal-lang a { color: var(--primary-dark); border-bottom: 1px solid currentColor; }
 .legal-ms { margin-top: clamp(56px, 8vh, 96px); }
 .legal-body h2.legal-ms-title { font-size: clamp(26px, 1.6vw + 14px, 34px); margin-top: 28px; }
+.legal-body h2.legal-part { font-size: clamp(26px, 1.6vw + 14px, 34px); margin-top: clamp(48px, 7vh, 80px); padding-top: 24px; border-top: 1px solid var(--line); }
 .legal-body h2[id] { scroll-margin-top: 96px; }
+.legal-body p.legal-note { border-left: 2px solid var(--primary); padding: 4px 0 4px 16px; }
 .legal-table { margin: 8px 0 18px; }
 .legal-table table { width: 100%; border-collapse: collapse; font-size: 14px; line-height: 1.5; }
 .legal-table th, .legal-table td { text-align: left; vertical-align: top; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--line); color: var(--ink-2); }
