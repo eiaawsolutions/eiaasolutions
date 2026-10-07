@@ -57,6 +57,7 @@
     },
     { "source": "/products", "destination": "/products.html", "type": 301 },
     { "source": "/privacy", "destination": "/privacy.html", "type": 301 },
+    { "source": "/terms", "destination": "/terms.html", "type": 301 },
     { "source": "/favicon.ico", "destination": "/brand/shield.png", "type": 301 },
 
     { "source": "/node_modules/*", "destination": "/not-found", "type": 302 },
