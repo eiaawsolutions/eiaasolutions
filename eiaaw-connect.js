@@ -230,9 +230,24 @@
   let cos = null, cosLoading = false, cosVoiceOn = false;
   try { cosVoiceOn = sessionStorage.getItem('cos-voice') === '1'; } catch (e) { /* default off */ }
   function cosState(s) { if (cos) cos.setState(s); }
+  // Warm greeting by the visitor's local time (see docs/COS-CODE-OF-CONDUCT.md section 3).
+  function timeGreeting(d) {
+    const h = (d || new Date()).getHours();
+    if (h >= 5 && h < 12) return 'Good morning';
+    if (h >= 12 && h < 18) return 'Good afternoon';
+    return 'Good evening';
+  }
+  // Voice speaks only the newest reply, never links or markdown, and never the same text twice.
+  let lastSpoken = '';
+  function speakable(t) {
+    return String(t).replace(/https?:\/\/\S+/g, 'the link in the chat').replace(/[*_`#>]+/g, '').replace(/\s+/g, ' ').trim();
+  }
   function cosSay(text) {
     if (!cos) return;
-    cos.say(text, { sound: cosVoiceOn }).then(() => { if (cos) cos.setState('idle'); });
+    const t = speakable(text);
+    if (!t || t === lastSpoken) { cos.setState('idle'); return; }
+    lastSpoken = t;
+    cos.say(t, { sound: cosVoiceOn }).then(() => { if (cos) cos.setState('idle'); });
   }
   function loadCoS() {
     if (cos || cosLoading) return;
@@ -249,7 +264,7 @@
     };
     if (window.CoSAvatar) { mountIt(); return; }
     const s = document.createElement('script');
-    s.src = 'cos-avatar.js?v=20261006b';
+    s.src = 'cos-avatar.js?v=20261007a';
     s.async = true;
     s.onload = mountIt;
     s.onerror = () => { cosLoading = false; };
@@ -267,7 +282,7 @@
     panel.innerHTML = `
       <div class="eiaaw-chat-head">
         <span class="cos-face" id="cos-face">
-          <img src="brand/cos.png?v=20261006b" alt="" width="56" height="56" decoding="async">
+          <img src="brand/cos.png?v=20261007a" alt="" width="56" height="56" decoding="async">
           <canvas id="cos-canvas" aria-hidden="true"></canvas>
         </span>
         <div class="cos-id">
@@ -313,7 +328,7 @@
     }
 
     // Seed greeting + quick replies
-    addBotMessage("Hi &mdash; I'm the EIAAW assistant. I can explain our products, share our ethics framework, or help you book a session. What brings you here?");
+    addBotMessage(`${timeGreeting()}! I'm the EIAAW assistant, an AI. How can we assist you today? I can explain our products, share our ethics framework, or help you book a session.`);
     renderQuickReplies([
       { label: 'Which product fits my team?', msg: 'Which of your four products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team) fits my team?' },
       { label: 'What does it cost?', msg: 'What does each EIAAW product cost?' },
