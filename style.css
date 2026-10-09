@@ -698,6 +698,15 @@ img { max-width: 100%; display: block; }
 .product-card p { color: var(--ink-2); margin: 0; font-size: 15px; line-height: 1.55; }
 .product-card .pc-foot { margin-top: auto; padding-top: 16px; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
 @media (max-width: 900px) { .product-card { grid-column: 1 / -1; } }
+/* An odd card out takes the whole last row: media lines up with the card above, copy sits beside it */
+.product-card.pc-wide { grid-column: 1 / -1; flex-direction: row; }
+.product-card.pc-wide .pc-media { flex: 0 0 calc(50% - clamp(10px, 1vw, 16px)); aspect-ratio: auto; min-height: 340px; }
+.product-card.pc-wide p { max-width: 52ch; }
+@media (min-width: 901px) { .product-card.pc-wide .pc-body { padding: clamp(28px, 3vw, 48px); } }
+@media (max-width: 900px) {
+  .product-card.pc-wide { flex-direction: column; }
+  .product-card.pc-wide .pc-media { flex: none; aspect-ratio: 16 / 10; min-height: 0; }
+}
 
 /* ---------- Products page layout ---------- */
 .product-hero { padding: clamp(60px, 8vh, 100px) 0 clamp(48px, 6vh, 80px) !important; }

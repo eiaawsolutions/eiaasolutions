@@ -262,7 +262,7 @@
     // Seed greeting + quick replies
     addBotMessage("Hi &mdash; I'm the EIAAW assistant. I can explain our products, share our ethics framework, or help you book a session. What brings you here?");
     renderQuickReplies([
-      { label: 'Which product fits my team?', msg: 'Which of your four products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team) fits my team?' },
+      { label: 'Which product fits my team?', msg: 'Which of your five products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team, Chief of Staff) fits my team?' },
       { label: 'What does it cost?', msg: 'What does each EIAAW product cost?' },
       { label: 'Book a session', action: 'book' },
       { label: 'Talk to the agent', action: 'agent' },
