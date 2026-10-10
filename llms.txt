@@ -1,8 +1,19 @@
 # EIAAW Solutions
 
-> EIAAW Solutions is an AI engineering and integration firm based in Kuala Lumpur, building production AI systems, agents and SaaS platforms for businesses. It runs five live products — Sales Agent, Ai Ads Agency, Workforce, Social Media Team and Chief of Staff — that take on repetitive work in sales, paid advertising, HR and payroll, social media, and email, calendar and follow-ups, with a human approval gate before anything externally visible happens. It also designs, builds and integrates custom AI systems and agents. Serves Malaysia and Asia-Pacific.
+> EIAAW Solutions is the AI implementation partner for Malaysian businesses and beyond, based in Kuala Lumpur. It sets up and runs AI that takes repetitive work off B2B teams (social media, lead generation, outreach, follow-up and the inbox), using its five live products (Sales Agent, Ai Ads Agency, Workforce, Social Media Team and Chief of Staff), and builds custom AI systems where they don't fit. A human approves everything before anything externally visible happens. Serves Malaysia, Asia-Pacific and beyond.
 
 EIAAW Solutions (legal name EIAAW SOLUTIONS, SSM registration 202603133419, CT0164540-H) is registered in Malaysia. Every engagement starts with an AI Impact Assessment grounded in seven non-negotiable ethics principles: Human Dignity First, Transparency, Fairness, Human Oversight, Privacy & Data, Continuous Learning, and True Partnership.
+
+## How to work with EIAAW
+
+1. AI review (20 minutes, no charge): tell EIAAW what the team does on repeat and get an honest read on what AI can and can't take off its plate. Start with "Talk to us" on the homepage.
+2. Quick-Win Sprint (2 weeks): EIAAW audits the highest-friction workflow and puts one automation live on the client's real work. Fixed scope and fixed price, agreed before work starts.
+3. AI Revenue Team (monthly): EIAAW sets up and runs Social Media Team, Sales Agent and Chief of Staff for the client as one managed package (content, leads, outreach and follow-up). The client approves everything; EIAAW tunes it monthly. Price agreed upfront after the review.
+4. Custom builds: AI designed and integrated with the client's CRM, ERP and data, as assessment, pilot, then rollout.
+
+Founding customers: EIAAW is taking on a small number of founding customers at a reduced rate in exchange for an honest case study once results are in. Ask via "Talk to us".
+
+Who you work with: EIAAW is led by its founder, Amos Wafula, a full-stack AI engineer who designs, builds and runs all five products. Email: amos@eiaawsolutions.com.
 
 ## Which product fits
 
@@ -36,7 +47,7 @@ Beyond its own products, EIAAW designs, builds and integrates production AI syst
 - [FAQ](https://eiaawsolutions.com/#faq)
 - [Privacy notice](https://eiaawsolutions.com/privacy.html) (this website; each product has its own)
 - [Terms](https://eiaawsolutions.com/terms.html) (links each product's terms)
-- Contact: eiaawsolutions@gmail.com — or "Talk to us" on the homepage (reply within one working day)
+- Contact: amos@eiaawsolutions.com — or "Talk to us" on the homepage (reply within one working day)
 - Headquartered in: Kuala Lumpur, Malaysia
 - Areas served: Malaysia, Singapore, Indonesia, Thailand, Philippines, Vietnam — Asia-Pacific
 - Languages: English, Bahasa Malaysia
