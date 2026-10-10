@@ -43,7 +43,7 @@
         <div data-view="form">
           <span class="eyebrow">Talk to us</span>
           <h3 id="eiaaw-contact-title">Tell us what you&rsquo;re working on.</h3>
-          <p class="eiaaw-modal-lead">We read every message. Expect a reply within one working day from <strong>eiaawsolutions@gmail.com</strong>.</p>
+          <p class="eiaaw-modal-lead">We read every message. Expect a reply from Amos (<strong>amos@eiaawsolutions.com</strong>) within one working day.</p>
 
           <div class="eiaaw-field">
             <label for="ec-name">Name</label>
@@ -80,7 +80,7 @@
         <div data-view="success" hidden>
           <span class="eyebrow">Message sent</span>
           <h3>Thanks &mdash; we&rsquo;ll be in touch.</h3>
-          <p class="eiaaw-modal-lead">Your enquiry just landed at <strong>eiaawsolutions@gmail.com</strong>. In the meantime you&rsquo;re welcome to keep exploring, or try the voice agent for a quick conversation.</p>
+          <p class="eiaaw-modal-lead">Your enquiry is with Amos, and he replies within one working day. In the meantime you&rsquo;re welcome to keep exploring, or try the voice agent for a quick conversation.</p>
           <div class="eiaaw-modal-actions">
             <button type="button" class="btn btn-primary btn-lg magnetic" id="ec-agent-cta">Talk to the agent <span class="arrow">&rarr;</span></button>
             <button type="button" class="btn btn-ghost eiaaw-modal-close-sec">Close</button>
@@ -192,7 +192,7 @@
       // Name/email/company stay, so a follow-up enquiry is quick to write.
       modal.querySelector('#ec-message').value = '';
     } catch (e) {
-      errEl.textContent = 'Connection issue. You can also email eiaawsolutions@gmail.com directly.';
+      errEl.textContent = 'Connection issue. You can also email amos@eiaawsolutions.com directly.';
       errEl.hidden = false;
       btn.disabled = false;
       btn.innerHTML = SUBMIT_LABEL;
@@ -404,7 +404,7 @@
       const data = await res.json().catch(() => ({}));
       removeTyping();
       if (data.error) {
-        addBotMessage(`${escapeHtml(data.error)}<br>You can also email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.`);
+        addBotMessage(`${escapeHtml(data.error)}<br>You can also email <a href="mailto:amos@eiaawsolutions.com">amos@eiaawsolutions.com</a>.`);
       } else {
         addBotMessage(data.response ? escapeHtml(data.response) : "I'm having trouble right now &mdash; please try the contact form.");
       }
@@ -416,7 +416,7 @@
       ]);
     } catch (e) {
       removeTyping();
-      addBotMessage('I can\u2019t reach the server right now. Please use the form below or email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.');
+      addBotMessage('I can\u2019t reach the server right now. Please use the form below or email <a href="mailto:amos@eiaawsolutions.com">amos@eiaawsolutions.com</a>.');
       renderQuickReplies([{ label: 'Open the form', action: 'form' }]);
     }
   }
