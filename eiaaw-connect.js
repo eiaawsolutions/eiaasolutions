@@ -73,16 +73,16 @@
 
           <div class="eiaaw-modal-actions">
             <button type="button" class="btn btn-primary btn-lg magnetic" id="ec-submit">Send enquiry <span class="arrow">&rarr;</span></button>
-            <button type="button" class="btn btn-ghost" data-view-switch="agent">Prefer to talk? Call the AI agent</button>
+            <button type="button" class="btn btn-ghost" data-view-switch="agent" data-eiaaw-voice>Prefer to talk? Call the AI agent</button>
           </div>
         </div>
 
         <div data-view="success" hidden>
           <span class="eyebrow">Message sent</span>
           <h3>Thanks &mdash; we&rsquo;ll be in touch.</h3>
-          <p class="eiaaw-modal-lead">Your enquiry just landed at <strong>eiaawsolutions@gmail.com</strong>. In the meantime you&rsquo;re welcome to keep exploring, or try the voice agent for a quick conversation.</p>
+          <p class="eiaaw-modal-lead">Your enquiry just landed at <strong>eiaawsolutions@gmail.com</strong>. In the meantime you&rsquo;re welcome to keep exploring<span data-eiaaw-voice>, or try the voice agent for a quick conversation</span>.</p>
           <div class="eiaaw-modal-actions">
-            <button type="button" class="btn btn-primary btn-lg magnetic" id="ec-agent-cta">Talk to the agent <span class="arrow">&rarr;</span></button>
+            <button type="button" class="btn btn-primary btn-lg magnetic" id="ec-agent-cta" data-eiaaw-voice>Talk to the agent <span class="arrow">&rarr;</span></button>
             <button type="button" class="btn btn-ghost eiaaw-modal-close-sec">Close</button>
           </div>
         </div>
@@ -199,8 +199,34 @@
     }
   }
 
+  // ---------- Voice availability ----------
+  // The Sales Agent pauses voice while its Retell account is out of credit.
+  // Then every voice entry point goes: the "Talk to the agent" buttons, the
+  // modal's agent links, the chat chips and the #agent deep link. If the
+  // answer can't be fetched, a call couldn't start either, so they go too.
+  let voiceOn = true;
+  const voiceChecked = fetch(`${API}/api/voice/availability`)
+    .then(r => r.json())
+    .then(d => d.available === true)
+    .catch(() => false)
+    .then(on => { voiceOn = on; if (!on) hideVoice(); });
+
+  function hideVoice() {
+    const style = document.createElement('style');
+    style.textContent = '.eiaaw-voice-off [data-eiaaw="agent"], .eiaaw-voice-off [data-eiaaw-voice] { display: none !important; }';
+    document.head.appendChild(style);
+    document.documentElement.classList.add('eiaaw-voice-off');
+    // Where the agent was the main button, "Talk to us" takes its place.
+    document.querySelectorAll('[data-eiaaw="agent"].btn-primary').forEach(agent => {
+      const contact = agent.parentElement && agent.parentElement.querySelector('[data-eiaaw="contact"].btn-outline');
+      if (contact) contact.classList.replace('btn-outline', 'btn-primary');
+    });
+  }
+
   // ---------- Talk to the agent ----------
   async function startAgentCall() {
+    await voiceChecked;
+    if (!voiceOn) return openContact({ message: 'I would like to book a session / demo with your team.' });
     track('start_voice_agent', 'Contact', { lead_source: 'voice_agent', page: location.pathname });
     try {
       const res = await fetch(`${API}/api/voice/public-session`, {
@@ -303,7 +329,7 @@
   function renderQuickReplies(items) {
     const qr = document.getElementById('eiaaw-chat-quick');
     qr.innerHTML = '';
-    items.forEach(it => {
+    items.filter(it => voiceOn || it.action !== 'agent').forEach(it => {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'eiaaw-chat-chip';
@@ -312,7 +338,7 @@
         qr.innerHTML = '';
         if (it.action === 'book') {
           addUserMessage('I\u2019d like to book a session.');
-          addBotMessage("Great &mdash; I\u2019ll open a short enquiry form. Fill it in and our team will lock in a time. Want to try the voice agent instead?");
+          addBotMessage("Great &mdash; I\u2019ll open a short enquiry form. Fill it in and our team will lock in a time." + (voiceOn ? ' Want to try the voice agent instead?' : ''));
           renderQuickReplies([
             { label: 'Open the form', action: 'form' },
             { label: 'Talk to the agent', action: 'agent' },
