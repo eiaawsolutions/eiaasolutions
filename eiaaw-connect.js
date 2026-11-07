@@ -7,6 +7,91 @@
   const API = 'https://sa.eiaawsolutions.com';
   const SUBMIT_LABEL = 'Send enquiry <span class="arrow">&rarr;</span>';
 
+  // Cloudflare Turnstile, the "are you a person?" check the Sales Agent asks
+  // for on the contact form and the chatbot's first message (its
+  // src/middleware/human-check.js; same logic as its public/human-check.js).
+  // Off while the Sales Agent has no site key: then this just sends. The
+  // widget is invisible unless Cloudflare wants the visitor to interact.
+  const HumanCheck = (function () {
+    let keyPromise = null;
+    let scriptPromise = null;
+    let tray = null;
+    const widgets = {};
+    const checkError = (message) => Object.assign(new Error(message), { humanCheck: true });
+    function siteKey() {
+      if (!keyPromise) {
+        keyPromise = fetch(`${API}/api/human-check`, { credentials: 'omit' })
+          .then(r => (r.ok ? r.json() : {}))
+          .then(d => (d && typeof d.siteKey === 'string' && d.siteKey) || null)
+          .catch(() => { keyPromise = null; return null; });
+      }
+      return keyPromise;
+    }
+    function loadScript() {
+      if (window.turnstile) return Promise.resolve();
+      if (!scriptPromise) {
+        scriptPromise = new Promise((resolve, reject) => {
+          const s = document.createElement('script');
+          s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+          s.async = true;
+          s.onload = () => resolve();
+          s.onerror = () => { scriptPromise = null; reject(checkError("The security check couldn't load. Check your connection and try again.")); };
+          document.head.appendChild(s);
+        });
+      }
+      return scriptPromise;
+    }
+    function trayElement() {
+      if (tray && document.body.contains(tray)) return tray;
+      tray = document.createElement('div');
+      tray.className = 'human-check-tray';
+      Object.assign(tray.style, { position: 'fixed', left: '50%', bottom: '16px', transform: 'translateX(-50%)', zIndex: '2147483000', maxWidth: 'calc(100vw - 32px)' });
+      document.body.appendChild(tray);
+      return tray;
+    }
+    async function token(action) {
+      const key = await siteKey();
+      if (!key) return null;
+      await loadScript();
+      return new Promise((resolve, reject) => {
+        let w = widgets[action];
+        const entry = {};
+        const finish = () => { clearTimeout(timer); if (w && w.pending === entry) w.pending = null; };
+        const timer = setTimeout(() => { finish(); reject(checkError('The security check took too long. Please try again.')); }, 120000);
+        entry.resolve = (t) => { finish(); resolve(t); };
+        entry.reject = (e) => { finish(); reject(e); };
+        if (!w) {
+          const box = document.createElement('div');
+          trayElement().appendChild(box);
+          w = widgets[action] = { box, id: null, pending: entry };
+          w.id = window.turnstile.render(box, {
+            sitekey: key, action, appearance: 'interaction-only', execution: 'execute',
+            callback: (t) => { if (w.pending) w.pending.resolve(t); },
+            'error-callback': () => { if (w.pending) w.pending.reject(checkError("We couldn't confirm you're a person. Please try again.")); return true; },
+          });
+        } else {
+          w.pending = entry;
+          window.turnstile.reset(w.id);
+        }
+        window.turnstile.execute(w.box);
+      });
+    }
+    async function asked(res) {
+      if (!res || res.status !== 403) return false;
+      const d = await res.clone().json().catch(() => null);
+      return !!d && d.code === 'human_check';
+    }
+    async function send(action, sendWith, { upfront = true } = {}) {
+      let res = await sendWith(upfront ? await token(action) : null);
+      if (await asked(res)) {
+        const t = await token(action);
+        if (t) res = await sendWith(t);
+      }
+      return res;
+    }
+    return { send };
+  })();
+
   // Conversion events for GA4 + Meta Pixel. Without these, analytics only sees
   // page views and can't tell which traffic converts. No personal data is sent —
   // only which channel the visitor used. consent.js decides whether either tag
@@ -172,11 +257,11 @@
     btn.innerHTML = 'Sending&hellip;';
 
     try {
-      const res = await fetch(`${API}/api/contact`, {
+      const res = await HumanCheck.send('contact', (turnstile) => fetch(`${API}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, phone, company, message: `${message}\n\n— ${consentRecord()}` }),
-      });
+        body: JSON.stringify({ name, email, phone, company, message: `${message}\n\n— ${consentRecord()}`, ...(turnstile && { turnstile }) }),
+      }));
       const data = await res.json().catch(() => ({}));
       if (data.error) {
         errEl.textContent = data.error;
@@ -192,7 +277,7 @@
       // Name/email/company stay, so a follow-up enquiry is quick to write.
       modal.querySelector('#ec-message').value = '';
     } catch (e) {
-      errEl.textContent = 'Connection issue. You can also email eiaawsolutions@gmail.com directly.';
+      errEl.textContent = e.humanCheck ? e.message : 'Connection issue. You can also email eiaawsolutions@gmail.com directly.';
       errEl.hidden = false;
       btn.disabled = false;
       btn.innerHTML = SUBMIT_LABEL;
@@ -416,18 +501,23 @@
     if (pendingText) handleUserMessage(pendingText);
   }
 
+  // After the first message passes the human check, the Sales Agent hands back
+  // a chat pass that covers the rest of the conversation.
+  let chatPass = null;
+
   async function handleUserMessage(text) {
     // Hard gate: capture visitor details before the AI answers anything.
     if (!gatePassed) { renderGate(text); return; }
     addUserMessage(text);
     addTyping();
     try {
-      const res = await fetch(`${API}/api/chatbot`, {
+      const res = await HumanCheck.send('chatbot', (turnstile) => fetch(`${API}/api/chatbot`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, source: 'eiaawsolutions.com' }),
-      });
+        body: JSON.stringify({ message: text, source: 'eiaawsolutions.com', ...(chatPass && { chatPass }), ...(turnstile && { turnstile }) }),
+      }), { upfront: !chatPass });
       const data = await res.json().catch(() => ({}));
+      if (typeof data.chatPass === 'string') chatPass = data.chatPass;
       removeTyping();
       if (data.error) {
         addBotMessage(`${escapeHtml(data.error)}<br>You can also email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.`);
@@ -442,6 +532,7 @@
       ]);
     } catch (e) {
       removeTyping();
+      if (e.humanCheck) { addBotMessage(escapeHtml(e.message)); return; }
       addBotMessage('I can\u2019t reach the server right now. Please use the form below or email <a href="mailto:eiaawsolutions@gmail.com">eiaawsolutions@gmail.com</a>.');
       renderQuickReplies([{ label: 'Open the form', action: 'form' }]);
     }
